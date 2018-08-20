@@ -396,7 +396,7 @@ public class PrintSuspendThread extends Thread {
     @Override
     public void run() {
         while (true) {
-            i++
+            i++;
             System.out.println(i);  // Note 1
         }
     }
