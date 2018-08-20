@@ -9,12 +9,12 @@
     ],
     "pluginsConfig": {
         "github": {
-            "url": "https://github.com/kuangshp/"
+            "url": "https://github.com/TangBean"
         },
         "github-buttons": {
             "buttons": [{
-            "user": "kuangshp",
-            "repo": "mysql",
+            "user": "TangBean",
+            "repo": "JavaMultiThread",
             "type": "star",
             "size": "small",
             "count": true
