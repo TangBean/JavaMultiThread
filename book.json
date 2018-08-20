@@ -1,0 +1,29 @@
+{
+    "title": "Java多线程编程核心技术笔记",
+    "plugins": [
+        "prism",
+        "anchor-navigation-ex",
+        "-highlight"
+    ],
+    "pluginsConfig": {
+        "anchor-navigation-ex": {
+            "float": { 
+                "showLevelIcon": true,
+                "level1Icon": "fa fa-hand-o-right",
+                "level2Icon": "fa fa-hand-o-right",
+                "level3Icon": "fa fa-hand-o-right"
+            }
+        }
+    },
+    "pdf": {
+        "pageNumbers": true,
+        "fontSize": 14,
+        "paperSize": "a4",
+        "margin": {
+            "right": 30,
+            "left": 30,
+            "top": 30,
+            "bottom": 50
+        }
+    }
+}
