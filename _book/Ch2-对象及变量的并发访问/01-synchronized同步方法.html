@@ -1,0 +1,1013 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>2.1. synchronized同步方法 · Java多线程编程核心技术笔记</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="02-volatile关键字.html" />
+    
+    
+    <link rel="prev" href="./" />
+    
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"buttons":[{"user":"kuangshp","repo":"mysql","type":"star","size":"small","count":true}]};
+    </script>
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../Ch1-Java多线程技能/">
+            
+                <a href="../Ch1-Java多线程技能/">
+            
+                    
+                    1. Java多线程技能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../Ch1-Java多线程技能/Java多线程概述.html">
+            
+                <a href="../Ch1-Java多线程技能/Java多线程概述.html">
+            
+                    
+                    1.1 Java多线程概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    2. 对象及变量的并发访问
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.3.1" data-path="01-synchronized同步方法.html">
+            
+                <a href="01-synchronized同步方法.html">
+            
+                    
+                    2.1. synchronized同步方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="02-volatile关键字.html">
+            
+                <a href="02-volatile关键字.html">
+            
+                    
+                    2.2. volatile关键字
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../Ch3-线程间通信/">
+            
+                <a href="../Ch3-线程间通信/">
+            
+                    
+                    3. 线程间通信
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../Ch3-线程间通信/01-等待通知机制.html">
+            
+                <a href="../Ch3-线程间通信/01-等待通知机制.html">
+            
+                    
+                    3.1. 等待通知机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../Ch3-线程间通信/02-join方法.html">
+            
+                <a href="../Ch3-线程间通信/02-join方法.html">
+            
+                    
+                    3.2. join方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../Ch3-线程间通信/03-ThreadLocal类.html">
+            
+                <a href="../Ch3-线程间通信/03-ThreadLocal类.html">
+            
+                    
+                    3.3. ThreadLocal类
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../Ch4-Lock的使用/">
+            
+                <a href="../Ch4-Lock的使用/">
+            
+                    
+                    4. Lock的使用
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../Ch4-Lock的使用/01-ReentrantLock类.html">
+            
+                <a href="../Ch4-Lock的使用/01-ReentrantLock类.html">
+            
+                    
+                    4.1. ReentrantLock类
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../Ch5-定时器Timer/">
+            
+                <a href="../Ch5-定时器Timer/">
+            
+                    
+                    5. 定时器Timer
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../Ch5-定时器Timer/01-定时器Timer.html">
+            
+                <a href="../Ch5-定时器Timer/01-定时器Timer.html">
+            
+                    
+                    5.1. 定时器Timer
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../Ch6-单例模式与多线程/">
+            
+                <a href="../Ch6-单例模式与多线程/">
+            
+                    
+                    6. 单例模式与多线程
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../Ch6-单例模式与多线程/01-单例模式与多线程.html">
+            
+                <a href="../Ch6-单例模式与多线程/01-单例模式与多线程.html">
+            
+                    
+                    6.1. 单例模式与多线程
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../Ch7-拾遗增补/">
+            
+                <a href="../Ch7-拾遗增补/">
+            
+                    
+                    7. 拾遗增补
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../Ch7-拾遗增补/01-线程的状态.html">
+            
+                <a href="../Ch7-拾遗增补/01-线程的状态.html">
+            
+                    
+                    7.1. 线程的状态
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../Ch7-拾遗增补/02-线程组.html">
+            
+                <a href="../Ch7-拾遗增补/02-线程组.html">
+            
+                    
+                    7.2. 线程组
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../Ch7-拾遗增补/03-SimpleDataFormat类的非线程安全处理.html">
+            
+                <a href="../Ch7-拾遗增补/03-SimpleDataFormat类的非线程安全处理.html">
+            
+                    
+                    7.3. SimpleDataFormat类的非线程安全处理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="../Ch7-拾遗增补/04-线程中的异常处理.html">
+            
+                <a href="../Ch7-拾遗增补/04-线程中的异常处理.html">
+            
+                    
+                    7.4. 线程中的异常处理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >2.1. synchronized同步方法</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-anchor"></i><ul><li><span class="title-icon fa fa-hand-o-right"></span><a href="#synchronized&#x540C;&#x6B65;"><b>1. </b>synchronized&#x540C;&#x6B65;</a></li><ul><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x975E;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;&#x662F;&#x5982;&#x4F55;&#x51FA;&#x73B0;&#x7684;"><b>1.1. </b>&#x975E;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;&#x662F;&#x5982;&#x4F55;&#x51FA;&#x73B0;&#x7684;</a></li><ul><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x8D4B;&#x503C;&#x65F6;&#x7684;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;"><b>1.1.1. </b>&#x8D4B;&#x503C;&#x65F6;&#x7684;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;</a></li><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x53D6;&#x503C;&#x65F6;&#x7684;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;&#x810F;&#x8BFB;"><b>1.1.2. </b>&#x53D6;&#x503C;&#x65F6;&#x7684;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;(&#x810F;&#x8BFB;)</a></li></ul><li><span class="title-icon fa fa-hand-o-right"></span><a href="#synchronized&#x5173;&#x952E;&#x5B57;"><b>1.2. </b>synchronized&#x5173;&#x952E;&#x5B57;</a></li><ul><li><span class="title-icon fa fa-hand-o-right"></span><a href="#synchronized&#x7684;&#x7279;&#x6027;"><b>1.2.1. </b>synchronized&#x7684;&#x7279;&#x6027;</a></li><li><span class="title-icon fa fa-hand-o-right"></span><a href="#synchronized&#x4F7F;&#x7528;&#x65B9;&#x5F0F;"><b>1.2.2. </b>synchronized&#x4F7F;&#x7528;&#x65B9;&#x5F0F;</a></li></ul><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x540C;&#x6B65;&#x4EE3;&#x7801;&#x5757;&#x653E;&#x5728;&#x975E;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x4E2D;&#x6267;&#x884C;&#x4EA7;&#x751F;&#x7684;&#x810F;&#x8BFB;&#x95EE;&#x9898;"><b>1.3. </b>&#x540C;&#x6B65;&#x4EE3;&#x7801;&#x5757;&#x653E;&#x5728;&#x975E;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x4E2D;&#x6267;&#x884C;&#x4EA7;&#x751F;&#x7684;&#x810F;&#x8BFB;&#x95EE;&#x9898;</a></li><li><span class="title-icon fa fa-hand-o-right"></span><a href="#synchronized-&#x975E;this&#x5BF9;&#x8C61;&#x7684;&#x4E09;&#x4E2A;&#x7ED3;&#x8BBA;"><b>1.4. </b>synchronized (&#x975E;this&#x5BF9;&#x8C61;)&#x7684;&#x4E09;&#x4E2A;&#x7ED3;&#x8BBA;</a></li><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x9759;&#x6001;&#x540C;&#x6B65;synchronized&#x65B9;&#x6CD5;&#x4E0E;synchronizedclass&#x4EE3;&#x7801;&#x5757;"><b>1.5. </b>&#x9759;&#x6001;&#x540C;&#x6B65;synchronized&#x65B9;&#x6CD5;&#x4E0E;synchronized(class)&#x4EE3;&#x7801;&#x5757;</a></li><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x7528;string&#x505A;&#x9501;&#x7684;&#x5751;"><b>1.6. </b>&#x7528;String&#x505A;&#x9501;&#x7684;&#x5751;</a></li><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x4EA7;&#x751F;&#x6B7B;&#x9501;"><b>1.7. </b>&#x4EA7;&#x751F;&#x6B7B;&#x9501;</a></li><ul><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x5982;&#x4F55;&#x4EA7;&#x751F;&#x6B7B;&#x9501;"><b>1.7.1. </b>&#x5982;&#x4F55;&#x4EA7;&#x751F;&#x6B7B;&#x9501;</a></li><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x5982;&#x4F55;&#x68C0;&#x6D4B;&#x6B7B;&#x9501;"><b>1.7.2. </b>&#x5982;&#x4F55;&#x68C0;&#x6D4B;&#x6B7B;&#x9501;</a></li></ul></ul></ul></div><a href="#synchronized&#x540C;&#x6B65;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><h1 id="synchronized&#x540C;&#x6B65;"><a name="synchronized&#x540C;&#x6B65;" class="anchor-navigation-ex-anchor" href="#synchronized&#x540C;&#x6B65;"><i class="fa fa-link" aria-hidden="true"></i></a>1. synchronized&#x540C;&#x6B65;</h1>
+<p>&quot;&#x975E;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&quot;&#x662F;&#x6211;&#x4EEC;&#x8981;&#x8003;&#x8651;&#x7684;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&quot;&#x975E;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&quot;&#x53EF;&#x80FD;&#x4F1A;&#x5BFC;&#x81F4;&#x6570;&#x636E;&#x7684;&#x810F;&#x8BFB;&#xFF0C;&#x4F7F;&#x5F97;&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x4EA7;&#x751F;&#x9519;&#x8BEF;&#x7684;&#x7ED3;&#x679C;&#x3002;</p>
+<p>&quot;&#x975E;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&quot;&#x95EE;&#x9898;&#x4E00;&#x822C;&#x5B58;&#x5728;&#x4E8E;&quot;&#x5B9E;&#x4F8B;&#x53D8;&#x91CF;&quot;&#x4E2D;&#xFF0C;&#x56E0;&#x4E3A;&#x5B9E;&#x4F8B;&#x53D8;&#x91CF;&#x662F;&#x6709;&#x53EF;&#x80FD;&#x88AB;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#x6240;&#x5171;&#x4EAB;&#x7684;&#xFF0C;&#x800C;&#x65B9;&#x6CD5;&#x5185;&#x90E8;&#x7684;&#x79C1;&#x6709;&#x53D8;&#x91CF;&#x5BF9;&#x4E8E;&#x6BCF;&#x4E2A;&#x7EBF;&#x7A0B;&#x90FD;&#x662F;&#x6709;&#x4E00;&#x4E2A;&#x526F;&#x672C;&#x7684;&#xFF0C;&#x56E0;&#x6B64;&#x4E0D;&#x5B58;&#x5728;&quot;&#x975E;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&quot;&#x95EE;&#x9898;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x53EA;&#x6709;&#x5171;&#x4EAB;&#x8D44;&#x6E90;&#x7684;&#x8BFB;&#x5199;&#x95EE;&#x9898;&#x624D;&#x9700;&#x8981;&#x6211;&#x4EEC;&#x901A;&#x8FC7;&quot;&#x540C;&#x6B65;&#x5316;&quot;&#x53BB;&#x89E3;&#x51B3;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;&#x3002;</p>
+<p><strong>&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x5305;&#x62EC;&#x539F;&#x5B50;&#x6027;&#x548C;&#x53EF;&#x89C1;&#x6027;&#x4E24;&#x4E2A;&#x65B9;&#x9762;</strong>&#x3002;</p>
+<p>synchronized&#xFF1A;&#x540C;&#x6B65;&#xFF0C;&#x52A0;&#x4E2A;&#x524D;&#x7F00; a-&#xFF0C;&#x5C31;&#x8868;&#x793A;&#x76F8;&#x53CD;&#x7684;&#x610F;&#x601D;&#x4E86;&#xFF0C;asynchronized&#xFF1A;&#x5F02;&#x6B65;&#x3002;</p>
+<p>&#x9996;&#x5148;&#x6211;&#x4EEC;&#x5148;&#x6765;&#x770B;&#x770B;&#x6CA1;&#x6709;&#x975E;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x7684;&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x8D77;&#x6765;&#x4F1A;&#x5BFC;&#x81F4;&#x7684;&#x95EE;&#x9898;&#x3002;</p>
+<h2 id="&#x975E;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;&#x662F;&#x5982;&#x4F55;&#x51FA;&#x73B0;&#x7684;"><a name="&#x975E;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;&#x662F;&#x5982;&#x4F55;&#x51FA;&#x73B0;&#x7684;" class="anchor-navigation-ex-anchor" href="#&#x975E;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;&#x662F;&#x5982;&#x4F55;&#x51FA;&#x73B0;&#x7684;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. &#x975E;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;&#x662F;&#x5982;&#x4F55;&#x51FA;&#x73B0;&#x7684;</h2>
+<p>&#x5148;&#x642D;&#x5EFA;&#x73AF;&#x5883;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p>&#x6587;&#x4EF6; PublicVar.java &#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PublicVar</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> String username <span class="token operator">=</span> <span class="token string">&quot;C&quot;</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> String password <span class="token operator">=</span> <span class="token string">&quot;CC&quot;</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setValue</span><span class="token punctuation">(</span>String username<span class="token punctuation">,</span> String password<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>username<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span><span class="token string">&quot;A&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>username <span class="token operator">=</span> username<span class="token punctuation">;</span>
+                Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">10000</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &#x5728;tha sleep&#x65F6;&#xFF0C;thb&#x6539;&#x53D8;&#x4E86;username&#x7684;&#x503C;&#xFF0C;&#x51FA;&#x73B0;&#x4E86;&#x6570;&#x636E;&#x4E0D;&#x540C;&#x6B65;&#x7684;&#x95EE;&#x9898;</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>password <span class="token operator">=</span> password<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>username <span class="token operator">=</span> username<span class="token punctuation">;</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>password <span class="token operator">=</span> password<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;Thread: &quot;</span> <span class="token operator">+</span> Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&quot; setValue method&quot;</span> <span class="token operator">+</span>
+                    <span class="token string">&quot; username=&quot;</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>username <span class="token operator">+</span> <span class="token string">&quot; password=&quot;</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>password<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;Thread: &quot;</span> <span class="token operator">+</span> Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&quot; getValue method&quot;</span> <span class="token operator">+</span>
+                <span class="token string">&quot; username=&quot;</span> <span class="token operator">+</span> username <span class="token operator">+</span> <span class="token string">&quot; password=&quot;</span> <span class="token operator">+</span> password<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x6587;&#x4EF6; ThreadA.java &#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ThreadA</span> <span class="token keyword">extends</span> <span class="token class-name">Thread</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> PublicVar publicVar<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token function">ThreadA</span><span class="token punctuation">(</span>PublicVar publicVar<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>publicVar <span class="token operator">=</span> publicVar<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        publicVar<span class="token punctuation">.</span><span class="token function">setValue</span><span class="token punctuation">(</span><span class="token string">&quot;A&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;AA&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x6587;&#x4EF6; ThreadB.java &#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ThreadB</span> <span class="token keyword">extends</span> <span class="token class-name">Thread</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> PublicVar publicVar<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token function">ThreadB</span><span class="token punctuation">(</span>PublicVar publicVar<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>publicVar <span class="token operator">=</span> publicVar<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        publicVar<span class="token punctuation">.</span><span class="token function">setValue</span><span class="token punctuation">(</span><span class="token string">&quot;B&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;BB&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x6587;&#x4EF6; Main.java &#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Main</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> InterruptedException <span class="token punctuation">{</span>
+        PublicVar publicVar <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PublicVar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        ThreadA tha <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ThreadA</span><span class="token punctuation">(</span>publicVar<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        tha<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">&quot;Thread A&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        tha<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        ThreadB thb <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ThreadB</span><span class="token punctuation">(</span>publicVar<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        thb<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">&quot;Thread B&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        thb<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="&#x8D4B;&#x503C;&#x65F6;&#x7684;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;"><a name="&#x8D4B;&#x503C;&#x65F6;&#x7684;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;" class="anchor-navigation-ex-anchor" href="#&#x8D4B;&#x503C;&#x65F6;&#x7684;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.1. &#x8D4B;&#x503C;&#x65F6;&#x7684;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;</h3>
+<p>&#x8FD0;&#x884C;&#x5982;&#x4E0A;&#x4EE3;&#x7801;&#xFF0C;&#x8FD0;&#x884C;&#x7ED3;&#x679C;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code>Thread: Thread B setValue method username=B password=BB
+Thread: Thread A setValue method username=B password=AA \\ &#x4EA7;&#x751F;&#x6570;&#x636E;&#x4E0D;&#x540C;&#x6B65;&#x95EE;&#x9898;
+</code></pre><p>&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF1A;&#x628A; setValue &#x65B9;&#x6CD5;&#x6539;&#x6210;&#x540C;&#x6B65;&#x7684;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">synchronized</span> <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setValue</span><span class="token punctuation">(</span>String username<span class="token punctuation">,</span> String password<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">}</span>
+</code></pre>
+<h3 id="&#x53D6;&#x503C;&#x65F6;&#x7684;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;&#x810F;&#x8BFB;"><a name="&#x53D6;&#x503C;&#x65F6;&#x7684;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;&#x810F;&#x8BFB;" class="anchor-navigation-ex-anchor" href="#&#x53D6;&#x503C;&#x65F6;&#x7684;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;&#x810F;&#x8BFB;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.2. &#x53D6;&#x503C;&#x65F6;&#x7684;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;(&#x810F;&#x8BFB;)</h3>
+<p>&#x4FEE;&#x6539;&#x6587;&#x4EF6; ThreadB.java &#x4E3A;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ThreadB</span> <span class="token keyword">extends</span> <span class="token class-name">Thread</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> PublicVar publicVar<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token function">ThreadB</span><span class="token punctuation">(</span>PublicVar publicVar<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>publicVar <span class="token operator">=</span> publicVar<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        publicVar<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x5F97;&#x5230;&#x8FD0;&#x884C;&#x7ED3;&#x679C;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code>Thread: Thread B getValue method username=A password=CC
+Thread: Thread A setValue method username=A password=AA
+</code></pre><p>&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF1A;&#x628A; getValue &#x65B9;&#x6CD5;&#x6539;&#x6210;&#x540C;&#x6B65;&#x7684;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">synchronized</span> <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">}</span>
+</code></pre>
+<p>&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x5BF9;&#x4E8E;&#x5171;&#x4EAB;&#x6570;&#x636E;&#xFF0C;&#x5176;&#x8BFB;&#x5199;&#x5FC5;&#x987B;&#x662F;&#x540C;&#x6B65;&#x7684;&#xFF0C;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#x53EF;&#x4EE5;&#x540C;&#x65F6;&#x8BFB;&#x53D6;&#xFF0C;&#x4F46;&#x662F;&#x53EA;&#x8981;&#x6709;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x5728;&#x6267;&#x884C;&#x5199;&#x5165;&#x64CD;&#x4F5C;&#xFF0C;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x5C31;&#x4E0D;&#x80FD;&#x518D;&#x8FDB;&#x884C;&#x4EFB;&#x4F55;&#x8BFB;&#x5199;&#x64CD;&#x4F5C;&#x4E86;&#xFF0C;&#x5FC5;&#x987B;&#x7B49;&#x5F85;&#x6267;&#x884C;&#x5199;&#x5165;&#x64CD;&#x4F5C;&#x7684;&#x7EBF;&#x7A0B;&#x6267;&#x884C;&#x5B8C;&#x624D;&#x884C;&#x3002;(&#x5728;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x5148;&#x4E0D;&#x8003;&#x8651;&#x6548;&#x7387;&#x95EE;&#x9898;&#xFF0C;&#x53EA;&#x4FDD;&#x8BC1;&#x7ED3;&#x679C;&#x6B63;&#x786E;)</p>
+<p>&#x6211;&#x4EEC;&#x4E3B;&#x8981;&#x91C7;&#x53D6;&#x7684;&#x89E3;&#x51B3;&#x95EE;&#x9898;&#x65B9;&#x5F0F;&#x5C31;&#x662F;&#xFF1A;&#x501F;&#x52A9; synchronized &#x5173;&#x952E;&#x5B57;&#xFF0C;synchronized &#x58F0;&#x660E;&#x7684;&#x65B9;&#x6CD5;&#x6216;&#x8005;&#x4EE3;&#x7801;&#x5757;&#x4E00;&#x5B9A;&#x540C;&#x6B65;&#x7684;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x662F;&#x6392;&#x961F;&#x8FD0;&#x884C;&#x7684;&#x3002;</p>
+<h2 id="synchronized&#x5173;&#x952E;&#x5B57;"><a name="synchronized&#x5173;&#x952E;&#x5B57;" class="anchor-navigation-ex-anchor" href="#synchronized&#x5173;&#x952E;&#x5B57;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. synchronized&#x5173;&#x952E;&#x5B57;</h2>
+<h3 id="synchronized&#x7684;&#x7279;&#x6027;"><a name="synchronized&#x7684;&#x7279;&#x6027;" class="anchor-navigation-ex-anchor" href="#synchronized&#x7684;&#x7279;&#x6027;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2.1. synchronized&#x7684;&#x7279;&#x6027;</h3>
+<ul>
+<li><p><strong>synchronized &#x62E5;&#x6709;&#x9501;&#x91CD;&#x5165;&#x7684;&#x529F;&#x80FD;</strong>&#xFF0C;&#x5373;&#x5F53;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x5F97;&#x5230;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x9501;&#x540E;&#xFF0C;&#x6B64;&#x65F6;&#x8FD9;&#x4E2A;&#x7EBF;&#x7A0B;&#x4E5F;&#x662F;&#x53EF;&#x4EE5;&#x8C03;&#x7528;&#x8BE5;&#x5BF9;&#x8C61;&#x5176;&#x4ED6;&#x88AB; synchronized &#x4FEE;&#x9970;&#x7684;&#x90E8;&#x5206;&#x7684;</p>
+<ul>
+<li><p>&#x5982;&#x679C;&#x4E0D;&#x53EF;&#x9501;&#x91CD;&#x5165;&#x7684;&#x8BDD;&#xFF0C;&#x4F1A;&#x9020;&#x6210;&#x6B7B;&#x9501;&#xFF0C;&#x9020;&#x6210;&#x6B7B;&#x9501;&#x7684;&#x539F;&#x56E0;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java">  <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Service</span> <span class="token punctuation">{</span>
+      <span class="token keyword">synchronized</span> <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">service1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;service1&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token function">service2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Note1</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">synchronized</span> <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">service2</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;service2&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+</code></pre>
+<p>  &#x5728; Note1 &#x5904;&#xFF0C;&#x8C03;&#x7528;&#x4E86; service2 &#x65B9;&#x6CD5;&#xFF0C;&#x6B64;&#x65F6; service1 &#x65B9;&#x6CD5;&#x5E76;&#x6CA1;&#x6709;&#x7ED3;&#x675F;&#xFF0C;&#x8BF4;&#x660E;&#x7EBF;&#x7A0B;&#x4E0D;&#x4F1A;&#x653E;&#x5F00;&#x9501;&#xFF0C;&#x53EF;&#x4EE5;&#x6267;&#x884C; service2 &#x4E5F;&#x662F;&#x9700;&#x8981;&#x9501;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x7EBF;&#x7A0B;&#x65E0;&#x6CD5;&#x518D;&#x6B21;&#x83B7;&#x5F97;&#x9501;&#xFF0C;&#x90A3;&#x4E48;&#x5B83;&#x5C06;&#x6C38;&#x8FDC;&#x65E0;&#x6CD5;&#x6267;&#x884C; service2&#xFF0C;&#x8FD9;&#x6837; service1 &#x5C31;&#x6C38;&#x8FDC;&#x4E0D;&#x4F1A;&#x7ED3;&#x675F;&#xFF0C;&#x5B83;&#x4E5F;&#x6C38;&#x8FDC;&#x4E0D;&#x4F1A;&#x653E;&#x5F00;&#x9501;&#xFF0C;&#x7A0B;&#x5E8F;&#x7684;&#x8FD0;&#x884C;&#x9677;&#x5165;&#x6B7B;&#x5FAA;&#x73AF;&#xFF0C;&#x5BFC;&#x81F4;&#x6B7B;&#x9501;&#x3002;</p>
+</li>
+<li><p>&#x5F53;&#x5B58;&#x5728;&#x7236;&#x5B50;&#x7C7B;&#x7EE7;&#x627F;&#x5173;&#x7CFB;&#x65F6;&#xFF0C;&#x5B50;&#x7C7B;&#x662F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&quot;&#x53EF;&#x91CD;&#x5165;&#x9501;&quot;&#x8C03;&#x7528;&#x7236;&#x7C7B;&#x7684;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x7684;</p>
+</li>
+</ul>
+</li>
+<li><p>&#x5F53;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x6267;&#x884C;&#x51FA;&#x73B0;&#x5F02;&#x5E38;&#x65F6;&#xFF0C;&#x5176;&#x6240;&#x6301;&#x6709;&#x7684;&#x9501;&#x4F1A;&#x81EA;&#x52A8;&#x91CA;&#x653E;</p>
+</li>
+</ul>
+<h3 id="synchronized&#x4F7F;&#x7528;&#x65B9;&#x5F0F;"><a name="synchronized&#x4F7F;&#x7528;&#x65B9;&#x5F0F;" class="anchor-navigation-ex-anchor" href="#synchronized&#x4F7F;&#x7528;&#x65B9;&#x5F0F;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2.2. synchronized&#x4F7F;&#x7528;&#x65B9;&#x5F0F;</h3>
+<p>synchronized &#x6709;&#x4E24;&#x79CD;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;&#xFF1A;</p>
+<ul>
+<li><p><code>synchronized</code>&#x4FEE;&#x9970;&#x5728;&#x65B9;&#x6CD5;&#x524D;&#x9762;&#xFF0C;&#x6B64;&#x65F6;&#x9501;&#x5BF9;&#x8C61;&#x4E3A;&#x5F53;&#x524D;&#x5BF9;&#x8C61;&#x672C;&#x8EAB;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;<code>this</code></p>
+<pre class="language-"><code class="lang-java">  <span class="token keyword">synchronized</span> <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">}</span>
+</code></pre>
+</li>
+<li><p><code>synchronized (&#x9501;&#x5BF9;&#x8C61;)</code>&#x4FEE;&#x9970;&#x5728;&#x4EE3;&#x7801;&#x5757;&#x524D;&#x9762;</p>
+<ul>
+<li>&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x9501;&#x5BF9;&#x8C61;&#x4E3A;&#x5F53;&#x524D;&#x5BF9;&#x8C61;&#x672C;&#x8EAB;&#xFF0C;&#x5373;<code>synchronized (this)</code></li>
+<li>&#x4E5F;&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x9501;&#x5BF9;&#x8C61;&#x4E3A;&#x5176;&#x4ED6;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;<strong>&#x6CE8;&#x610F;&#xFF1A;</strong>&#x5982;&#x679C;&#x8981;&#x8FDB;&#x884C;&#x540C;&#x6B65;&#x7684;&#x591A;&#x4E2A;&#x4EE3;&#x7801;&#x5757;&#xFF0C;&#x90A3;&#x4E48;&#x8FD9;&#x4E9B;&#x9700;&#x8981;&#x8FDB;&#x884C;&#x540C;&#x6B65;&#x7684;&#x591A;&#x4E2A;&#x540C;&#x6B65;&#x4EE3;&#x7801;&#x5757;&#x7684;&#x9501;&#x5FC5;&#x987B;&#x662F;<strong>&#x540C;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;</strong>&#xFF0C;&#x5373;<code>synchronized (&#x975E;this&#x5BF9;&#x8C61;)</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>&#x8FD9;&#x91CC;&#x53EF;&#x4EE5;&#x5F15;&#x7533;&#x51FA;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#xFF1A;&#x5982;&#x4F55;&#x5224;&#x65AD; synchronized &#x65B9;&#x6CD5;&#x4F7F;&#x7528;&#x7684;&#x9501;&#x662F; this&#xFF1F;</p>
+<p>&#x65B9;&#x6CD5;&#xFF1A;&#x53EA;&#x8981;&#x5199;&#x4E00;&#x6BB5;&#x4EE3;&#x7801;&#xFF0C;&#x91CC;&#x9762;&#x6709;&#x4E00;&#x4E2A;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#x4E2D;&#x6709;&#x4E00;&#x4E2A; synchronized (this) &#x540C;&#x6B65;&#x4EE3;&#x7801;&#x5757;&#xFF0C;&#x53EA;&#x8981;&#x8BC1;&#x660E;&#x8FD9;&#x4E24;&#x90E8;&#x5206;&#x662F;&#x540C;&#x6B65;&#x7684;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x8BF4;&#x660E; synchronized &#x65B9;&#x6CD5;&#x4F7F;&#x7528;&#x7684;&#x9501;&#x662F; this&#x3002;</p>
+</blockquote>
+<p><strong>&#x4E3A;&#x4EC0;&#x4E48;&#x9700;&#x8981;&#x9501;&#x4E0D;&#x662F; this &#x5BF9;&#x8C61;&#x7684;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x5462;&#xFF1F;</strong></p>
+<p>&#x56E0;&#x4E3A;&#x8FD9;&#x6837;&#x53EF;&#x4EE5;&#x63D0;&#x9AD8;&#x7A0B;&#x5E8F;&#x7684;&#x8FD0;&#x884C;&#x6548;&#x7387;&#xFF0C;&#x5982;&#x679C;&#x5728;&#x4E00;&#x4E2A;&#x7C7B;&#x4E2D;&#x6709;&#x5F88;&#x591A;&#x4E2A; synchronized &#x65B9;&#x6CD5;&#xFF0C;&#x8FD9;&#x65F6;&#x867D;&#x7136;&#x80FD;&#x5B9E;&#x73B0;&#x540C;&#x6B65;&#xFF0C;&#x4F46;&#x662F;&#x7531;&#x4E8E;&#x7EBF;&#x7A0B;&#x963B;&#x585E;&#x7684;&#x539F;&#x56E0;&#xFF0C;&#x8FD0;&#x884C;&#x6548;&#x7387;&#x5927;&#x5927;&#x964D;&#x4F4E;&#xFF0C;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x6839;&#x636E;&#x540C;&#x6B65;&#x9700;&#x6C42;&#x5C06;&#x5176;&#x5206;&#x6210;&#x9700;&#x8981;&#x8FDB;&#x884C;&#x540C;&#x6B65;&#x51E0;&#x90E8;&#x5206;&#xFF0C;&#x6BCF;&#x4E00;&#x90E8;&#x5206;&#x7528;&#x4E00;&#x4E2A;&#x9501;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x4E0D;&#x4F1A;&#x6709;&#x8FD9;&#x4E48;&#x591A;&#x7684;&#x65B9;&#x6CD5;&#x7684;&#x8FD0;&#x884C;&#x90FD;&#x9700;&#x8981;&#x62A2;&#x593A;&#x4E00;&#x4E2A;&#x9501;&#xFF0C;&#x5927;&#x5927;&#x63D0;&#x9AD8;&#x8FD0;&#x884C;&#x6548;&#x7387;&#x3002;</p>
+<p><em>&#x4E0D;&#x8FC7;&#x8981;&#x6CE8;&#x610F;&#xFF01;&#xFF01;&#xFF01;&#x4F7F;&#x7528;<code>synchronized (&#x975E; this &#x5BF9;&#x8C61; x)</code>&#x8FDB;&#x884C;&#x540C;&#x6B65;&#x65F6;&#xFF0C;x &#x5FC5;&#x987B;&#x662F;&#x540C;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x5C31;&#x662F;&#x8BF4;&#x57FA;&#x672C;&#x4E0A;&#x5E94;&#x8BE5;&#x662F;&#x6210;&#x5458;&#x53D8;&#x91CF;&#x800C;&#x975E;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#xFF0C;<em>*&#x9501;&#x4E0D;&#x540C;&#x7684; synchronized &#x4EE3;&#x7801;&#x5757;&#x662F;&#x5F02;&#x6B65;&#x7684;</em></em>&#x3002;</p>
+<h2 id="&#x540C;&#x6B65;&#x4EE3;&#x7801;&#x5757;&#x653E;&#x5728;&#x975E;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x4E2D;&#x6267;&#x884C;&#x4EA7;&#x751F;&#x7684;&#x810F;&#x8BFB;&#x95EE;&#x9898;"><a name="&#x540C;&#x6B65;&#x4EE3;&#x7801;&#x5757;&#x653E;&#x5728;&#x975E;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x4E2D;&#x6267;&#x884C;&#x4EA7;&#x751F;&#x7684;&#x810F;&#x8BFB;&#x95EE;&#x9898;" class="anchor-navigation-ex-anchor" href="#&#x540C;&#x6B65;&#x4EE3;&#x7801;&#x5757;&#x653E;&#x5728;&#x975E;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x4E2D;&#x6267;&#x884C;&#x4EA7;&#x751F;&#x7684;&#x810F;&#x8BFB;&#x95EE;&#x9898;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3. &#x540C;&#x6B65;&#x4EE3;&#x7801;&#x5757;&#x653E;&#x5728;&#x975E;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x4E2D;&#x6267;&#x884C;&#x4EA7;&#x751F;&#x7684;&#x810F;&#x8BFB;&#x95EE;&#x9898;</h2>
+<p>&#x6709;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;&#x7684;&#x4EE3;&#x7801;&#xFF1A;</p>
+<p>&#x6587;&#x4EF6; MyOneList.java &#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyOneList</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> List<span class="token generics function"><span class="token punctuation">&lt;</span>String<span class="token punctuation">&gt;</span></span> list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">synchronized</span> <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">add</span><span class="token punctuation">(</span>String data<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">synchronized</span> <span class="token keyword">int</span> <span class="token function">getSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> list<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x6587;&#x4EF6; MyService.java &#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyService</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">addServiceMethod</span><span class="token punctuation">(</span>MyOneList list<span class="token punctuation">,</span> String data<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token keyword">synchronized</span> <span class="token punctuation">(</span>list<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>list<span class="token punctuation">.</span><span class="token function">getSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">2000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x6587;&#x4EF6; MyThread1.java &#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyThread1</span> <span class="token keyword">extends</span> <span class="token class-name">Thread</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> MyOneList list<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token function">MyThread1</span><span class="token punctuation">(</span>MyOneList list<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>list <span class="token operator">=</span> list<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        MyService service <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MyService</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        service<span class="token punctuation">.</span><span class="token function">addServiceMethod</span><span class="token punctuation">(</span>list<span class="token punctuation">,</span> <span class="token string">&quot;thread1&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x6587;&#x4EF6; MyThread2.java &#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyThread2</span> <span class="token keyword">extends</span> <span class="token class-name">Thread</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> MyOneList list<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token function">MyThread2</span><span class="token punctuation">(</span>MyOneList list<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>list <span class="token operator">=</span> list<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        MyService service <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MyService</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        service<span class="token punctuation">.</span><span class="token function">addServiceMethod</span><span class="token punctuation">(</span>list<span class="token punctuation">,</span> <span class="token string">&quot;thread2&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x6587;&#x4EF6; Main.java &#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Main</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> InterruptedException <span class="token punctuation">{</span>
+        MyOneList list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MyOneList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        MyThread1 thread1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MyThread1</span><span class="token punctuation">(</span>list<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        thread1<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">&quot;thread1&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        thread1<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        MyThread2 thread2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MyThread2</span><span class="token punctuation">(</span>list<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        thread2<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">&quot;thread2&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        thread2<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">6000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;listSize=&quot;</span> <span class="token operator">+</span> list<span class="token punctuation">.</span><span class="token function">getSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x8FD0;&#x884C;&#x7ED3;&#x679C;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code>listSize=2
+</code></pre><p>&#x51FA;&#x9519;&#x539F;&#x56E0;&#xFF1A;MyService.java Note1 &#x5904;&#xFF0C;&#x5F53; thread1 &#x6267;&#x884C;&#x5230;&#x65F6;&#x5EF6;&#x65F6;&#xFF0C;list &#x7684;&#x957F;&#x5EA6;&#x4ECD;&#x4E3A; 0&#xFF0C;&#x6B64;&#x65F6; thread2 &#x5DF2;&#x7ECF;&#x53EF;&#x4EE5;&#x8C03;&#x7528; getSize() &#x65B9;&#x6CD5;&#x4E86;&#xFF0C;&#x56E0;&#x6B64; thread2 &#x4E5F;&#x53EF;&#x4EE5;&#x8FDB;&#x5165; if &#x4EE3;&#x7801;&#x5757;&#x4E2D;&#xFF0C;&#x5C31;&#x4F1A;&#x5BFC;&#x81F4; list &#x8FDB;&#x884C;&#x4E86;&#x4E24;&#x6B21; add &#x64CD;&#x4F5C;&#x3002;</p>
+<p>&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF1A;&#x4FEE;&#x6539; MyService.java &#x6587;&#x4EF6;&#x4E3A;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyService</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">addServiceMethod</span><span class="token punctuation">(</span>MyOneList list<span class="token punctuation">,</span> String data<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token keyword">synchronized</span> <span class="token punctuation">(</span>list<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">// &#x628A;if&#x7528;synchronized&#x4EE3;&#x7801;&#x5757;&#x5305;&#x8D77;&#x6765;&#xFF0C;&#x56E0;&#x4E3A;&#x8FD9;&#x91CC;&#x53EA;&#x6709;&#x4E00;&#x4E2A;list&#x5BF9;&#x8C61;&#xFF0C;&#x7528;&#x5176;&#x505A;&#x9501;&#x5F88;&#x5408;&#x9002;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>list<span class="token punctuation">.</span><span class="token function">getSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">2000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="synchronized-&#x975E;this&#x5BF9;&#x8C61;&#x7684;&#x4E09;&#x4E2A;&#x7ED3;&#x8BBA;"><a name="synchronized-&#x975E;this&#x5BF9;&#x8C61;&#x7684;&#x4E09;&#x4E2A;&#x7ED3;&#x8BBA;" class="anchor-navigation-ex-anchor" href="#synchronized-&#x975E;this&#x5BF9;&#x8C61;&#x7684;&#x4E09;&#x4E2A;&#x7ED3;&#x8BBA;"><i class="fa fa-link" aria-hidden="true"></i></a>1.4. synchronized (&#x975E;this&#x5BF9;&#x8C61;)&#x7684;&#x4E09;&#x4E2A;&#x7ED3;&#x8BBA;</h2>
+<p>&#x5047;&#x8BBE; x &#x662F;&#x4E00;&#x4E2A;&#x975E; this &#x5BF9;&#x8C61;&#xFF0C;&#x90A3;&#x4E48;&#x6709;&#x4EE5;&#x4E0B;&#x4E09;&#x4E2A;&#x7ED3;&#x8BBA;&#xFF1A;</p>
+<ol>
+<li>&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#x6267;&#x884C;<code>synchronized (x) {}</code>&#x540C;&#x6B65;&#x4EE3;&#x7801;&#x5757;&#x65F6;&#x5448;&#x540C;&#x6B65;&#x6548;&#x679C;</li>
+<li>&#x5F53;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x6267;&#x884C; x &#x5BF9;&#x8C61;&#x4E2D; synchronized &#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x65F6;&#x5448;&#x540C;&#x6B65;&#x6548;&#x679C;</li>
+<li>&#x5F53;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x6267;&#x884C; x &#x5BF9;&#x8C61;&#x4E2D;<code>synchronized (this) {}</code>&#x540C;&#x6B65;&#x4EE3;&#x7801;&#x5757;&#x65F6;&#x5448;&#x540C;&#x6B65;&#x6548;&#x679C;</li>
+</ol>
+<p><em>&#x6CE8;&#x610F;&#xFF1A;&#x5982;&#x679C;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x8C03;&#x7528; x &#x4E0D;&#x52A0; synchronized &#x7684;&#x65B9;&#x6CD5;&#x65F6;&#xFF0C;&#x8FD8;&#x662F;&#x5F02;&#x6B65;&#x8C03;&#x7528;&#x3002;</em></p>
+<h2 id="&#x9759;&#x6001;&#x540C;&#x6B65;synchronized&#x65B9;&#x6CD5;&#x4E0E;synchronizedclass&#x4EE3;&#x7801;&#x5757;"><a name="&#x9759;&#x6001;&#x540C;&#x6B65;synchronized&#x65B9;&#x6CD5;&#x4E0E;synchronizedclass&#x4EE3;&#x7801;&#x5757;" class="anchor-navigation-ex-anchor" href="#&#x9759;&#x6001;&#x540C;&#x6B65;synchronized&#x65B9;&#x6CD5;&#x4E0E;synchronizedclass&#x4EE3;&#x7801;&#x5757;"><i class="fa fa-link" aria-hidden="true"></i></a>1.5. &#x9759;&#x6001;&#x540C;&#x6B65;synchronized&#x65B9;&#x6CD5;&#x4E0E;synchronized(class)&#x4EE3;&#x7801;&#x5757;</h2>
+<p><strong>&#x5148;&#x8BF4;&#x7ED3;&#x8BBA;&#xFF1A;synchronized &#x5173;&#x952E;&#x5B57;&#x52A0;&#x5230; static &#x65B9;&#x6CD5;&#x4E0A;&#x662F;&#x7ED9; Class &#x7C7B;&#x4E0A;&#x9501;&#xFF0C;&#x800C;&#x52A0;&#x5230;&#x975E; static &#x5219;&#x662F;&#x7ED9;&#x5BF9;&#x8C61;&#x4E0A;&#x9501;&#x3002;</strong></p>
+<p>&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF1A;synchronized &#x5173;&#x952E;&#x5B57;&#x52A0;&#x5230; static &#x65B9;&#x6CD5;&#x548C; synchronized (class) &#x4EE3;&#x7801;&#x5757;&#x7684;&#x4F5C;&#x7528;&#x662F;&#x4E00;&#x6837;&#x7684;&#x3002;</p>
+<p>&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5982;&#x4E0B;&#x4EE3;&#x7801;&#x8BC1;&#x660E;&#xFF1A;</p>
+<p>&#x6587;&#x4EF6; Service.java &#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Service</span> <span class="token punctuation">{</span>
+    <span class="token keyword">synchronized</span> <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">method1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">// &#x666E;&#x901A;&#x540C;&#x6B65;&#x65B9;&#x6CD5;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&quot; begin.&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&quot; end.&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">synchronized</span> <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">method2</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">// &#x9759;&#x6001;&#x540C;&#x6B65;&#x65B9;&#x6CD5;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&quot; begin.&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">3000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&quot; end.&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">method3</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">synchronized</span> <span class="token punctuation">(</span>Service<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">// &#x7528;&#x5F53;&#x524D;&#x7C7B;&#x7684;class&#x7C7B;&#x4F5C;&#x4E3A;&#x9501;&#x7684;&#x540C;&#x6B65;&#x4EE3;&#x7801;&#x5757;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&quot; begin.&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&quot; end.&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x6587;&#x4EF6; Run.java &#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Run</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Service service <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Service</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Thread thread2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token annotation punctuation">@Override</span>
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                service<span class="token punctuation">.</span><span class="token function">method2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        thread2<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">&quot;thread2&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        thread2<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        Thread thread1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token annotation punctuation">@Override</span>
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                service<span class="token punctuation">.</span><span class="token function">method1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        thread1<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">&quot;thread1&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        thread1<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        Thread thread3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token annotation punctuation">@Override</span>
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                service<span class="token punctuation">.</span><span class="token function">method3</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        thread3<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">&quot;thread3&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        thread3<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x8FD0;&#x884C;&#x7ED3;&#x679C;&#xFF1A;</p>
+<pre class="language-"><code>thread2 begin.
+thread1 begin.
+thread1 end.
+thread2 end.
+thread3 begin.
+thread3 end.
+</code></pre><p>&#x89C2;&#x5BDF;&#x8FD0;&#x884C;&#x7ED3;&#x679C;&#x53EF;&#x77E5;&#xFF0C;thread2 &#x548C; thread3 &#x662F;&#x540C;&#x6B65;&#x7684;&#xFF0C;&#x548C; thread1 &#x662F;&#x5F02;&#x6B65;&#x7684;&#x3002;</p>
+<h2 id="&#x7528;string&#x505A;&#x9501;&#x7684;&#x5751;"><a name="&#x7528;string&#x505A;&#x9501;&#x7684;&#x5751;" class="anchor-navigation-ex-anchor" href="#&#x7528;string&#x505A;&#x9501;&#x7684;&#x5751;"><i class="fa fa-link" aria-hidden="true"></i></a>1.6. &#x7528;String&#x505A;&#x9501;&#x7684;&#x5751;</h2>
+<p>&#x6211;&#x4EEC;&#x77E5;&#x9053; JVM &#x4E2D;&#x5177;&#x6709; String &#x5E38;&#x91CF;&#x6C60;&#x7F13;&#x5B58;&#x7684;&#x529F;&#x80FD;&#xFF0C;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x5148;&#x7B80;&#x5355;&#x7684;&#x4ECB;&#x7ECD;&#x4EE5;&#x4E0B;&#x5B57;&#x7B26;&#x4E32;&#x5E38;&#x91CF;&#x6C60;&#xFF1A;</p>
+<blockquote>
+<p>JVM &#x4E3A;&#x4E86;&#x63D0;&#x9AD8;&#x6027;&#x80FD;&#x51CF;&#x5C0F;&#x5185;&#x5B58;&#x5F00;&#x9500;&#xFF0C;&#x5728;&#x5B9E;&#x4F8B;&#x5316;&#x5B57;&#x7B26;&#x4E32;&#x5E38;&#x91CF;&#x7684;&#x65F6;&#x5019;&#x8FDB;&#x884C;&#x4E86;&#x5982;&#x4E0B;&#x4F18;&#x5316;&#xFF1A;</p>
+<ul>
+<li>&#x4E3A;&#x5B57;&#x7B26;&#x4E32;&#x5F00;&#x8F9F;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x5E38;&#x91CF;&#x6C60;</li>
+<li>&#x521B;&#x5EFA;&#x5B57;&#x7B26;&#x4E32;&#x5E38;&#x91CF;&#x65F6;&#xFF0C;&#x9996;&#x5148;&#x68C0;&#x67E5;&#x5B57;&#x7B26;&#x4E32;&#x5E38;&#x91CF;&#x6C60;&#x662F;&#x5426;&#x5B58;&#x5728;&#x8BE5;&#x5B57;&#x7B26;&#x4E32;<ul>
+<li>&#x5B58;&#x5728;&#x8BE5;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x8FD4;&#x56DE;&#x5F15;&#x7528;&#x5B9E;&#x4F8B;</li>
+<li>&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x5B9E;&#x4F8B;&#x5316;&#x8BE5;&#x5B57;&#x7B26;&#x4E32;&#x5E76;&#x653E;&#x5165;&#x6C60;&#x4E2D;</li>
+</ul>
+</li>
+</ul>
+<p>&#x5B57;&#x7B26;&#x4E32;&#x5E38;&#x91CF;&#x6C60;&#x5B9E;&#x73B0;&#x7684;&#x57FA;&#x7840;&#xFF1A;</p>
+<ul>
+<li>&#x5B57;&#x7B26;&#x4E32;&#x662F;&#x4E0D;&#x53EF;&#x53D8;&#x7684;&#xFF0C;&#x53EF;&#x4EE5;&#x4E0D;&#x7528;&#x62C5;&#x5FC3;&#x6570;&#x636E;&#x51B2;&#x7A81;&#x8FDB;&#x884C;&#x5171;&#x4EAB;</li>
+<li>&#x8FD0;&#x884C;&#x65F6;&#xFF0C;&#x5B9E;&#x4F8B;&#x521B;&#x5EFA;&#x7684;<strong>&#x5168;&#x5C40;&#x5B57;&#x7B26;&#x4E32;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x6709;&#x4E00;&#x4E2A;&#x8868;</strong>&#xFF0C;&#x603B;&#x662F;<strong>&#x4E3A;&#x6C60;&#x4E2D;&#x6BCF;&#x4E2A;&#x552F;&#x4E00;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x5BF9;&#x8C61;&#x7EF4;&#x62A4;&#x4E00;&#x4E2A;&#x5F15;&#x7528;</strong>,&#x8FD9;&#x5C31;&#x610F;&#x5473;&#x7740;&#x5B83;&#x4EEC;&#x4E00;&#x76F4;&#x5F15;&#x7528;&#x7740;&#x5B57;&#x7B26;&#x4E32;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x6240;&#x4EE5;&#xFF0C;&#x5728;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x7684;&#x8FD9;&#x4E9B;&#x5B57;&#x7B26;&#x4E32;&#x4E0D;&#x4F1A;&#x88AB;&#x5783;&#x573E;&#x6536;&#x96C6;&#x5668;&#x56DE;&#x6536; </li>
+</ul>
+</blockquote>
+<p>&#x7531;&#x4E8E;&#x8FD9;&#x4E2A;&#x7279;&#x6027;&#xFF0C;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x7528; String &#x4F5C;&#x4E3A;&#x9501;&#xFF0C;&#x53EA;&#x8981;&#x6211;&#x4EEC;&#x5BF9;&#x4E24;&#x4E2A; synchronized &#x540C;&#x6B65;&#x4EE3;&#x7801;&#x5757;&#x4F7F;&#x7528;&#x7528;&#x76F8;&#x540C;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x505A;&#x9501;&#xFF0C;&#x8FD9;&#x4E24;&#x4E2A; synchronized &#x540C;&#x6B65;&#x4EE3;&#x7801;&#x5757;&#x5C31;&#x662F;&#x540C;&#x6B65;&#x7684;&#xFF0C;&#x8FD9;&#x4F1A;&#x6BD4;&#x8F83;&#x5BB9;&#x6613;&#x5E26;&#x6765;&#x95EE;&#x9898;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x4E00;&#x822C;&#x90FD;&#x4E0D;&#x4F7F;&#x7528; String &#x4F5C;&#x4E3A;&#x9501;&#xFF0C;&#x800C;&#x7528;&#x5176;&#x4ED6;&#x5BF9;&#x8C61;&#xFF0C;&#x6BD4;&#x5982;<code>new Object()</code>&#xFF0C;<strong>&#x540C;&#x65F6;&#x8981;&#x6CE8;&#x610F;&#xFF1A;&#x53EA;&#x8981;&#x5BF9;&#x8C61;&#x4E0D;&#x53D8;&#xFF0C;&#x65E2;&#x4F7F;&#x8BE5;&#x5BF9;&#x8C61;&#x7684;&#x5C5E;&#x6027;&#x6539;&#x53D8;&#x4E86;&#xFF0C;&#x7ED3;&#x679C;&#x8FD8;&#x662F;&#x540C;&#x6B65;&#x7684;</strong>&#xFF0C;&#x6BD4;&#x5982;&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;<code>User user</code>&#x4F5C;&#x4E3A;&#x9501;&#xFF0C;&#x5373;&#x4F7F;&#x6211;&#x4EEC;&#x6539;&#x53D8;&#x4E86;<code>user.username</code>&#x7684;&#x503C;&#xFF0C;&#x7ED3;&#x679C;&#x4ECD;&#x662F;&#x540C;&#x6B65;&#x7684;&#x3002;</p>
+<h2 id="&#x4EA7;&#x751F;&#x6B7B;&#x9501;"><a name="&#x4EA7;&#x751F;&#x6B7B;&#x9501;" class="anchor-navigation-ex-anchor" href="#&#x4EA7;&#x751F;&#x6B7B;&#x9501;"><i class="fa fa-link" aria-hidden="true"></i></a>1.7. &#x4EA7;&#x751F;&#x6B7B;&#x9501;</h2>
+<h3 id="&#x5982;&#x4F55;&#x4EA7;&#x751F;&#x6B7B;&#x9501;"><a name="&#x5982;&#x4F55;&#x4EA7;&#x751F;&#x6B7B;&#x9501;" class="anchor-navigation-ex-anchor" href="#&#x5982;&#x4F55;&#x4EA7;&#x751F;&#x6B7B;&#x9501;"><i class="fa fa-link" aria-hidden="true"></i></a>1.7.1. &#x5982;&#x4F55;&#x4EA7;&#x751F;&#x6B7B;&#x9501;</h3>
+<p>&#x6B7B;&#x9501;&#x7684;&#x4EA7;&#x751F;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<ul>
+<li>&#x6709;&#x4E24;&#x4E2A;&#x7EBF;&#x7A0B;(th1, th2)&#xFF0C;&#x4E24;&#x4E2A;&#x9501;(lock1, lock2)</li>
+<li>th1 &#x548C; th2 &#x6309;&#x7167;&#x5982;&#x4E0B;&#x987A;&#x5E8F;&#x5E0C;&#x6C42;&#x9501;&#xFF0C;&#x4E24;&#x4E2A;&#x7EBF;&#x7A0B;&#x5728;&#x5F97;&#x5230;&#x4E00;&#x4E2A;&#x9501;&#x540E;&#x90FD;&#x6709;&#x76F8;&#x540C;&#x65F6;&#x95F4;&#x7684;&#x65F6;&#x5EF6;<ul>
+<li>th1&#xFF1A;<code>lock1-&gt;lock2</code></li>
+<li>th2&#xFF1A;<code>lock2-&gt;lock1</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>&#x4EA7;&#x751F;&#x6B7B;&#x9501;&#x7684;&#x672C;&#x8D28;&#xFF1A;</strong>&#x4E24;&#x4E2A;&#x7EBF;&#x7A0B;&#x5728;&#x9700;&#x8981;&#x5BF9;&#x65B9;&#x638C;&#x63E1;&#x7684;&#x8D44;&#x6E90;&#x540C;&#x65F6;&#x53C8;&#x4E0D;&#x80AF;&#x653E;&#x5F00;&#x81EA;&#x5DF1;&#x624B;&#x4E2D;&#x7684;&#x8D44;&#x6E90;&#xFF0C;&#x7531;&#x6B64;&#x9677;&#x5165;&#x7684;&#x80F6;&#x7740;&#x72B6;&#x6001;</p>
+<p><strong>&#x4EA7;&#x751F;&#x6B7B;&#x9501;&#x7684;&#x7A0B;&#x5E8F;&#xFF1A;</strong></p>
+<p>&#x6587;&#x4EF6; DeadLock.java &#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DeadLock</span> <span class="token keyword">implements</span> <span class="token class-name">Runnable</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> String username<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> Object lock1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> Object lock2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setUsername</span><span class="token punctuation">(</span>String username<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>username <span class="token operator">=</span> username<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>username<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span><span class="token string">&quot;a&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">synchronized</span> <span class="token punctuation">(</span>lock1<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;username=&quot;</span> <span class="token operator">+</span> username<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">2000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">synchronized</span> <span class="token punctuation">(</span>lock2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>username <span class="token operator">+</span> <span class="token string">&quot;: lock1-&gt;lock2&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>username<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span><span class="token string">&quot;b&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">synchronized</span> <span class="token punctuation">(</span>lock2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;username=&quot;</span> <span class="token operator">+</span> username<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">2000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">synchronized</span> <span class="token punctuation">(</span>lock1<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>username <span class="token operator">+</span> <span class="token string">&quot;: lock2-&gt;lock1&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x6587;&#x4EF6; Run.java &#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Run</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> InterruptedException <span class="token punctuation">{</span>
+        DeadLock deadLock <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DeadLock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Thread th1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span>deadLock<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        deadLock<span class="token punctuation">.</span><span class="token function">setUsername</span><span class="token punctuation">(</span><span class="token string">&quot;a&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        th1<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Thread th2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span>deadLock<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        deadLock<span class="token punctuation">.</span><span class="token function">setUsername</span><span class="token punctuation">(</span><span class="token string">&quot;b&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        th2<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x7ED3;&#x679C;&#xFF1A;</p>
+<pre class="language-"><code>username=a
+username=b
+// &#x800C;&#x540E;&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x505C;&#x6B62;&#xFF0C;&#x4E0D;&#x518D;&#x5411;&#x4E0B;&#x6267;&#x884C;&#xFF0C;&#x9677;&#x5165;&#x6B7B;&#x9501;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4E0B;&#x4E00;&#x8282;&#x7684;&#x65B9;&#x6CD5;&#x8FDB;&#x884C;&#x68C0;&#x6D4B;
+</code></pre><h3 id="&#x5982;&#x4F55;&#x68C0;&#x6D4B;&#x6B7B;&#x9501;"><a name="&#x5982;&#x4F55;&#x68C0;&#x6D4B;&#x6B7B;&#x9501;" class="anchor-navigation-ex-anchor" href="#&#x5982;&#x4F55;&#x68C0;&#x6D4B;&#x6B7B;&#x9501;"><i class="fa fa-link" aria-hidden="true"></i></a>1.7.2. &#x5982;&#x4F55;&#x68C0;&#x6D4B;&#x6B7B;&#x9501;</h3>
+<p>&#x53EF;&#x4EE5;&#x901A;&#x8FC7; JDK &#x7684;&#x81EA;&#x5E26;&#x5DE5;&#x5177;<code>jps</code>&#x548C;<code>jstack</code>&#x6765;&#x68C0;&#x6D4B;&#x6B7B;&#x9501;&#x3002;&#x6B65;&#x9AA4;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ul>
+<li><p>&#x4F7F;&#x7528;<code>jps</code>&#x547D;&#x4EE4;&#x5F97;&#x5230; Run &#x7EBF;&#x7A0B;&#x7684; id</p>
+<pre class="language-"><code class="lang-bash">  C:\Users\Bean\IdeaProjects\LearnSpring<span class="token operator">&gt;</span>jps
+  13428 Launcher
+  14852 Run
+  16868
+  2664 Jps
+</code></pre>
+</li>
+<li><p><code>jstack -l [id&#x503C;]</code>&#xFF0C;&#x67E5;&#x770B;&#x7ED3;&#x679C;</p>
+<pre class="language-"><code>  C:\Users\Bean\IdeaProjects\LearnSpring&gt;jstack -l 14852
+  ...
+  Java stack information for the threads listed above:
+  ===================================================
+  &quot;Thread-1&quot;:
+          at ch2.deadlock.DeadLock.run(DeadLock.java:36)
+          - waiting to lock &lt;0x00000000d6327928&gt; (a java.lang.Object)
+          - locked &lt;0x00000000d6327938&gt; (a java.lang.Object)
+          at java.lang.Thread.run(Thread.java:748)
+  &quot;Thread-0&quot;:
+          at ch2.deadlock.DeadLock.run(DeadLock.java:23)
+          - waiting to lock &lt;0x00000000d6327938&gt; (a java.lang.Object)
+          - locked &lt;0x00000000d6327928&gt; (a java.lang.Object)
+          at java.lang.Thread.run(Thread.java:748)
+
+  Found 1 deadlock.
+</code></pre></li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: 2. 对象及变量的并发访问">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="02-volatile关键字.html" class="navigation navigation-next " aria-label="Next page: 2.2. volatile关键字">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"2.1. synchronized同步方法","level":"1.3.1","depth":2,"next":{"title":"2.2. volatile关键字","level":"1.3.2","depth":2,"path":"Ch2-对象及变量的并发访问/02-volatile关键字.md","ref":"Ch2-对象及变量的并发访问/02-volatile关键字.md","articles":[]},"previous":{"title":"2. 对象及变量的并发访问","level":"1.3","depth":1,"path":"Ch2-对象及变量的并发访问/README.md","ref":"Ch2-对象及变量的并发访问/README.md","articles":[{"title":"2.1. synchronized同步方法","level":"1.3.1","depth":2,"path":"Ch2-对象及变量的并发访问/01-synchronized同步方法.md","ref":"Ch2-对象及变量的并发访问/01-synchronized同步方法.md","articles":[]},{"title":"2.2. volatile关键字","level":"1.3.2","depth":2,"path":"Ch2-对象及变量的并发访问/02-volatile关键字.md","ref":"Ch2-对象及变量的并发访问/02-volatile关键字.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["prism","anchor-navigation-ex","github","github-buttons","-highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/kuangshp/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"level1Icon":"fa fa-hand-o-right","level2Icon":"fa fa-hand-o-right","level3Icon":"fa fa-hand-o-right","showLevelIcon":true},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showLevel":true},"github-buttons":{"buttons":[{"user":"kuangshp","repo":"mysql","type":"star","size":"small","count":true}]},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":14,"fontFamily":"SimSun","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":30,"left":30,"top":30,"bottom":50}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Java多线程编程核心技术笔记","gitbook":"*"},"file":{"path":"Ch2-对象及变量的并发访问/01-synchronized同步方法.md","mtime":"2018-08-15T02:52:45.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-20T06:32:20.556Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

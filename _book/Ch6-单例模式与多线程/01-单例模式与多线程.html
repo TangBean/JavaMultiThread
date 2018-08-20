@@ -1,0 +1,740 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>6.1. 单例模式与多线程 · Java多线程编程核心技术笔记</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../Ch7-拾遗增补/" />
+    
+    
+    <link rel="prev" href="./" />
+    
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"buttons":[{"user":"kuangshp","repo":"mysql","type":"star","size":"small","count":true}]};
+    </script>
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../Ch1-Java多线程技能/">
+            
+                <a href="../Ch1-Java多线程技能/">
+            
+                    
+                    1. Java多线程技能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../Ch1-Java多线程技能/Java多线程概述.html">
+            
+                <a href="../Ch1-Java多线程技能/Java多线程概述.html">
+            
+                    
+                    1.1 Java多线程概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../Ch2-对象及变量的并发访问/">
+            
+                <a href="../Ch2-对象及变量的并发访问/">
+            
+                    
+                    2. 对象及变量的并发访问
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../Ch2-对象及变量的并发访问/01-synchronized同步方法.html">
+            
+                <a href="../Ch2-对象及变量的并发访问/01-synchronized同步方法.html">
+            
+                    
+                    2.1. synchronized同步方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../Ch2-对象及变量的并发访问/02-volatile关键字.html">
+            
+                <a href="../Ch2-对象及变量的并发访问/02-volatile关键字.html">
+            
+                    
+                    2.2. volatile关键字
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../Ch3-线程间通信/">
+            
+                <a href="../Ch3-线程间通信/">
+            
+                    
+                    3. 线程间通信
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../Ch3-线程间通信/01-等待通知机制.html">
+            
+                <a href="../Ch3-线程间通信/01-等待通知机制.html">
+            
+                    
+                    3.1. 等待通知机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../Ch3-线程间通信/02-join方法.html">
+            
+                <a href="../Ch3-线程间通信/02-join方法.html">
+            
+                    
+                    3.2. join方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../Ch3-线程间通信/03-ThreadLocal类.html">
+            
+                <a href="../Ch3-线程间通信/03-ThreadLocal类.html">
+            
+                    
+                    3.3. ThreadLocal类
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../Ch4-Lock的使用/">
+            
+                <a href="../Ch4-Lock的使用/">
+            
+                    
+                    4. Lock的使用
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../Ch4-Lock的使用/01-ReentrantLock类.html">
+            
+                <a href="../Ch4-Lock的使用/01-ReentrantLock类.html">
+            
+                    
+                    4.1. ReentrantLock类
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../Ch5-定时器Timer/">
+            
+                <a href="../Ch5-定时器Timer/">
+            
+                    
+                    5. 定时器Timer
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../Ch5-定时器Timer/01-定时器Timer.html">
+            
+                <a href="../Ch5-定时器Timer/01-定时器Timer.html">
+            
+                    
+                    5.1. 定时器Timer
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    6. 单例模式与多线程
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.7.1" data-path="01-单例模式与多线程.html">
+            
+                <a href="01-单例模式与多线程.html">
+            
+                    
+                    6.1. 单例模式与多线程
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../Ch7-拾遗增补/">
+            
+                <a href="../Ch7-拾遗增补/">
+            
+                    
+                    7. 拾遗增补
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../Ch7-拾遗增补/01-线程的状态.html">
+            
+                <a href="../Ch7-拾遗增补/01-线程的状态.html">
+            
+                    
+                    7.1. 线程的状态
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../Ch7-拾遗增补/02-线程组.html">
+            
+                <a href="../Ch7-拾遗增补/02-线程组.html">
+            
+                    
+                    7.2. 线程组
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../Ch7-拾遗增补/03-SimpleDataFormat类的非线程安全处理.html">
+            
+                <a href="../Ch7-拾遗增补/03-SimpleDataFormat类的非线程安全处理.html">
+            
+                    
+                    7.3. SimpleDataFormat类的非线程安全处理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="../Ch7-拾遗增补/04-线程中的异常处理.html">
+            
+                <a href="../Ch7-拾遗增补/04-线程中的异常处理.html">
+            
+                    
+                    7.4. 线程中的异常处理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >6.1. 单例模式与多线程</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-anchor"></i><ul><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x4E0E;&#x591A;&#x7EBF;&#x7A0B;"><b>1. </b>&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x4E0E;&#x591A;&#x7EBF;&#x7A0B;</a></li><ul><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x5355;&#x7EBF;&#x7A0B;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7684;&#x5B9E;&#x73B0;"><b>1.1. </b>&#x5355;&#x7EBF;&#x7A0B;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7684;&#x5B9E;&#x73B0;</a></li><ul><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x7ACB;&#x5373;&#x52A0;&#x8F7D;&#xFF1A;&#x997F;&#x6C49;&#x6A21;&#x5F0F;"><b>1.1.1. </b>&#x7ACB;&#x5373;&#x52A0;&#x8F7D;&#xFF1A;&#x997F;&#x6C49;&#x6A21;&#x5F0F;</a></li><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x5EF6;&#x8FDF;&#x52A0;&#x8F7D;&#xFF1A;&#x61D2;&#x6C49;&#x6A21;&#x5F0F;"><b>1.1.2. </b>&#x5EF6;&#x8FDF;&#x52A0;&#x8F7D;&#xFF1A;&#x61D2;&#x6C49;&#x6A21;&#x5F0F;</a></li></ul><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x61D2;&#x6C49;&#x6A21;&#x5F0F;&#x4E0E;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;"><b>1.2. </b>&#x61D2;&#x6C49;&#x6A21;&#x5F0F;&#x4E0E;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;</a></li><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x591A;&#x7EBF;&#x7A0B;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7684;&#x5B9E;&#x73B0;"><b>1.3. </b>&#x591A;&#x7EBF;&#x7A0B;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7684;&#x5B9E;&#x73B0;</a></li><ul><li><span class="title-icon fa fa-hand-o-right"></span><a href="#dcl&#x53CC;&#x68C0;&#x67E5;&#x9501;&#x673A;&#x5236;"><b>1.3.1. </b>DCL&#x53CC;&#x68C0;&#x67E5;&#x9501;&#x673A;&#x5236;</a></li><li><span class="title-icon fa fa-hand-o-right"></span><a href="#static&#x5185;&#x90E8;&#x7C7B;&#xFF08;&#x4E0D;&#x9002;&#x7528;&#x4E8E;&#x5E8F;&#x5217;&#x5316;&#xFF09;"><b>1.3.2. </b>static&#x5185;&#x90E8;&#x7C7B;&#xFF08;&#x4E0D;&#x9002;&#x7528;&#x4E8E;&#x5E8F;&#x5217;&#x5316;&#xFF09;</a></li><li><span class="title-icon fa fa-hand-o-right"></span><a href="#static&#x4EE3;&#x7801;&#x5757;"><b>1.3.3. </b>static&#x4EE3;&#x7801;&#x5757;</a></li><li><span class="title-icon fa fa-hand-o-right"></span><a href="#enum&#x6570;&#x636E;&#x7C7B;&#x578B;"><b>1.3.4. </b>enum&#x6570;&#x636E;&#x7C7B;&#x578B;</a></li></ul><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7684;&#x5E8F;&#x5217;&#x5316;&#x548C;&#x53CD;&#x5E8F;&#x5217;&#x5316;"><b>1.4. </b>&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7684;&#x5E8F;&#x5217;&#x5316;&#x548C;&#x53CD;&#x5E8F;&#x5217;&#x5316;</a></li></ul></ul></div><a href="#&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x4E0E;&#x591A;&#x7EBF;&#x7A0B;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><h1 id="&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x4E0E;&#x591A;&#x7EBF;&#x7A0B;"><a name="&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x4E0E;&#x591A;&#x7EBF;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x4E0E;&#x591A;&#x7EBF;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x4E0E;&#x591A;&#x7EBF;&#x7A0B;</h1>
+<p>&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#xFF1A;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x7C7B;&#xFF0C;&#x5B83;&#x53EA;&#x53EF;&#x4EE5;&#x521B;&#x5EFA;&#x51FA;&#x6765;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x5B83;&#x4E0D;&#x5141;&#x8BB8;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x521B;&#x5EFA;&#x5BF9;&#x8C61;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x9996;&#x5148;&#x8981;&#x628A;&#x5B83;&#x7684;&#x6784;&#x9020;&#x51FD;&#x6570;&#x79C1;&#x6709;&#x5316;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">private</span> <span class="token function">Singleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x7136;&#x540E;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x5B58;&#x50A8;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#x672C;&#x8EAB;&#x7684; static &#x6210;&#x5458;&#x53D8;&#x91CF;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">private</span> <span class="token keyword">static</span> Singleton singleton <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Singleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>&#x4E4B;&#x540E;&#x901A;&#x8FC7;&#x4E00;&#x4E2A; getInstance() &#x65B9;&#x6CD5;&#x6765;&#x83B7;&#x53D6;&#x8FD9;&#x4E2A;&#x552F;&#x4E00;&#x7684;&#x5B9E;&#x4F8B;&#x5316;&#x5BF9;&#x8C61;&#x3002;</p>
+<h2 id="&#x5355;&#x7EBF;&#x7A0B;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7684;&#x5B9E;&#x73B0;"><a name="&#x5355;&#x7EBF;&#x7A0B;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7684;&#x5B9E;&#x73B0;" class="anchor-navigation-ex-anchor" href="#&#x5355;&#x7EBF;&#x7A0B;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7684;&#x5B9E;&#x73B0;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. &#x5355;&#x7EBF;&#x7A0B;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7684;&#x5B9E;&#x73B0;</h2>
+<h3 id="&#x7ACB;&#x5373;&#x52A0;&#x8F7D;&#xFF1A;&#x997F;&#x6C49;&#x6A21;&#x5F0F;"><a name="&#x7ACB;&#x5373;&#x52A0;&#x8F7D;&#xFF1A;&#x997F;&#x6C49;&#x6A21;&#x5F0F;" class="anchor-navigation-ex-anchor" href="#&#x7ACB;&#x5373;&#x52A0;&#x8F7D;&#xFF1A;&#x997F;&#x6C49;&#x6A21;&#x5F0F;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.1. &#x7ACB;&#x5373;&#x52A0;&#x8F7D;&#xFF1A;&#x997F;&#x6C49;&#x6A21;&#x5F0F;</h3>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Singleton</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> Singleton singleton <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Singleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &#x76F4;&#x63A5;&#x5728;&#x8C03;&#x7528;getInstance&#x65B9;&#x6CD5;&#x524D;&#x5C31;&#x628A;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#x521B;&#x5EFA;&#x51FA;&#x6765;</span>
+
+    <span class="token keyword">private</span> <span class="token function">Singleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> Singleton <span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> singleton<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="&#x5EF6;&#x8FDF;&#x52A0;&#x8F7D;&#xFF1A;&#x61D2;&#x6C49;&#x6A21;&#x5F0F;"><a name="&#x5EF6;&#x8FDF;&#x52A0;&#x8F7D;&#xFF1A;&#x61D2;&#x6C49;&#x6A21;&#x5F0F;" class="anchor-navigation-ex-anchor" href="#&#x5EF6;&#x8FDF;&#x52A0;&#x8F7D;&#xFF1A;&#x61D2;&#x6C49;&#x6A21;&#x5F0F;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.2. &#x5EF6;&#x8FDF;&#x52A0;&#x8F7D;&#xFF1A;&#x61D2;&#x6C49;&#x6A21;&#x5F0F;</h3>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Singleton</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> Singleton singleton<span class="token punctuation">;</span> <span class="token comment">// &#x5728;&#x8C03;&#x7528;getInstance&#x65B9;&#x6CD5;&#x524D;&#x5148;&#x4E0D;&#x521B;&#x5EFA;&#x5BF9;&#x8C61;</span>
+
+    <span class="token keyword">private</span> <span class="token function">Singleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> Singleton <span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>singleton <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                singleton <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Singleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &#x7B2C;&#x4E00;&#x6B21;&#x8C03;&#x7528;getInstance&#x65F6;&#xFF0C;singleton&#x4E3A;&#x7A7A;&#xFF0C;&#x8FD9;&#x65F6;new&#x65B0;&#x5BF9;&#x8C61;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> singleton<span class="token punctuation">;</span> <span class="token comment">// &#x4E4B;&#x540E;&#x5728;&#x8C03;&#x7528;getInstance&#x5C31;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;singleton&#x5C31;&#x53EF;&#x4EE5;&#x4E86;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="&#x61D2;&#x6C49;&#x6A21;&#x5F0F;&#x4E0E;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;"><a name="&#x61D2;&#x6C49;&#x6A21;&#x5F0F;&#x4E0E;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;" class="anchor-navigation-ex-anchor" href="#&#x61D2;&#x6C49;&#x6A21;&#x5F0F;&#x4E0E;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. &#x61D2;&#x6C49;&#x6A21;&#x5F0F;&#x4E0E;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;</h2>
+<p>&#x4F7F;&#x7528;&#x997F;&#x6C49;&#x6A21;&#x5F0F;&#xFF0C;&#x5012;&#x662F;&#x6CA1;&#x6709;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;&#xFF0C;&#x4E0D;&#x591F;&#x8981;&#x662F;&#x6211;&#x4EEC;&#x4ECE;&#x5934;&#x5230;&#x5C3E;&#x90FD;&#x7528;&#x4E0D;&#x5230; getInstance &#x65B9;&#x6CD5;&#xFF0C;&#x6211;&#x4EEC;&#x521B;&#x5EFA;&#x7684;&#x5355;&#x4F8B;&#x5BF9;&#x8C61;&#x7684;&#x8D44;&#x6E90;&#x5C31;&#x6D6A;&#x8D39;&#x6389;&#x4E86;&#xFF0C;&#x6240;&#x4EE5;&#x4E3A;&#x4E86;&#x8282;&#x7701;&#x8D44;&#x6E90;&#x6211;&#x4EEC;&#x8FD8;&#x662F;&#x60F3;&#x8981;&#x4F7F;&#x7528;&#x61D2;&#x6C49;&#x6A21;&#x5F0F;&#x7684;&#xFF0C;&#x4E0D;&#x8FC7;&#x5728;&#x591A;&#x7EBF;&#x7A0B;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x61D2;&#x6C49;&#x6A21;&#x5F0F;&#x662F;&#x4E0D;&#x80FD;&#x4FDD;&#x8BC1;&#x5355;&#x4F8B;&#x7684;&#x3002;</p>
+<p>&#x61D2;&#x6C49;&#x6A21;&#x5F0F;&#x4E0D;&#x80FD;&#x4FDD;&#x8BC1;&#x5355;&#x4F8B;&#x7684;&#x4E3B;&#x8981;&#x539F;&#x56E0;&#x5728;&#x8FD9;&#x91CC;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">static</span> Singleton <span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>singleton <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">10000</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &#x5982;&#x679C;&#x6211;&#x4EEC;&#x5728;&#x8FD9;&#x91CC;&#x52A0;&#x4E00;&#x4E2A;&#x5EF6;&#x65F6;&#xFF0C;&#x90A3;&#x4E48;&#x7EBF;&#x7A0B;&#x4E00;&#x8FDB;&#x5165;&#x5230;if&#x4EE3;&#x7801;&#x5757;&#x65F6;&#xFF0C;</span>
+                            <span class="token comment">// &#x8FD9;&#x65F6;singleton&#x4F9D;&#x65E7;&#x4E3A;null&#xFF0C;&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#x7EBF;&#x7A0B;&#x4E8C;&#x4E5F;&#x53EF;&#x4EE5;&#x8FDB;&#x5165;if&#x4EE3;&#x7801;&#x5757;&#xFF0C;</span>
+                            <span class="token comment">// &#x8FD9;&#x6837;&#x5C31;&#x4F1A;&#x6709;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#x8FDB;&#x5165;if&#x4EE3;&#x7801;&#x5757;</span>
+        singleton <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Singleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &#x591A;&#x4E2A;&#x8FDB;&#x5165;if&#x4EE3;&#x7801;&#x5757;&#x7684;&#x7EBF;&#x7A0B;&#x90FD;&#x4F1A;&#x8FD0;&#x884C;&#x8FD9;&#x4E00;&#x884C;&#xFF0C;&#x5C31;&#x4EA7;&#x751F;&#x4E86;&#x591A;&#x4E2A;Singleton&#x5BF9;&#x8C61;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> singleton<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="&#x591A;&#x7EBF;&#x7A0B;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7684;&#x5B9E;&#x73B0;"><a name="&#x591A;&#x7EBF;&#x7A0B;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7684;&#x5B9E;&#x73B0;" class="anchor-navigation-ex-anchor" href="#&#x591A;&#x7EBF;&#x7A0B;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7684;&#x5B9E;&#x73B0;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3. &#x591A;&#x7EBF;&#x7A0B;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7684;&#x5B9E;&#x73B0;</h2>
+<h3 id="dcl&#x53CC;&#x68C0;&#x67E5;&#x9501;&#x673A;&#x5236;"><a name="dcl&#x53CC;&#x68C0;&#x67E5;&#x9501;&#x673A;&#x5236;" class="anchor-navigation-ex-anchor" href="#dcl&#x53CC;&#x68C0;&#x67E5;&#x9501;&#x673A;&#x5236;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3.1. DCL&#x53CC;&#x68C0;&#x67E5;&#x9501;&#x673A;&#x5236;</h3>
+<p>&#x60F3;&#x8981;&#x89E3;&#x51B3;&#x591A;&#x7EBF;&#x7A0B;&#x4E0D;&#x80FD;&#x4FDD;&#x8BC1;&#x5355;&#x4F8B;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x4F7F;&#x7528;&#x540C;&#x6B65;&#x6280;&#x672F;&#x80AF;&#x5B9A;&#x65F6;&#x7B2C;&#x4E00;&#x4E2A;&#x60F3;&#x5230;&#x7684;&#xFF0C;&#x53EF;&#x662F;&#x5982;&#x679C;&#x5148;&#x8FD9;&#x6837;&#x7ED9;&#x6574;&#x4E2A; getInstance &#x65B9;&#x6CD5;&#x90FD;&#x52A0;&#x4E0A;&#x9501;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">synchronized</span> <span class="token keyword">public</span> <span class="token keyword">static</span> Singleton <span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">}</span>
+</code></pre>
+<p>&#x8FD9;&#x6837;&#x7A0B;&#x5E8F;&#x7684;&#x8FD0;&#x884C;&#x6548;&#x7387;&#x4F1A;&#x5927;&#x6253;&#x6298;&#x6263;&#xFF0C;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x53EA;&#x6709;&#x5728; new &#x5355;&#x4F8B;&#x5BF9;&#x8C61;&#x7684;&#x65F6;&#x5019;&#x6709;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;&#xFF0C;&#x5F53;&#x6211;&#x4EEC; new &#x5B8C;&#x4E86;&#x5355;&#x4F8B;&#x5BF9;&#x8C61;&#x4E4B;&#x540E;&#x5C31;&#x4E0D;&#x6D89;&#x53CA;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;&#x4E86;&#xFF0C;&#x8FD9;&#x65F6;&#x5019;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#x6765;&#x53D6;&#x5BF9;&#x8C61;&#x662F;&#x4E0D;&#x4F1A;&#x53D1;&#x751F;&#x95EE;&#x9898;&#x7684;&#xFF0C;&#x53EF;&#x662F;&#x8FD9;&#x4E2A;&#x65F6;&#x5019; getInstance &#x65B9;&#x6CD5;&#x4F9D;&#x65E7;&#x662F;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#xFF0C;&#x540C;&#x4E00;&#x65F6;&#x523B;&#x5230;&#x6765;&#x7684;&#x7EBF;&#x7A0B;&#x4ECD;&#x9700;&#x8981;&#x6392;&#x961F;&#x6267;&#x884C;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x901A;&#x8FC7; DCL &#x673A;&#x5236;&#xFF0C;&#x53EA;&#x7ED9;&#x4E00;&#x4E2A;&#x5F88;&#x5C0F;&#x7684;&#x90E8;&#x5206;&#x8BBE;&#x8BA1;&#x6210;&#x540C;&#x6B65;&#x7684;&#xFF0C;&#x6765;&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">static</span> Singleton <span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>singleton <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">synchronized</span> <span class="token punctuation">(</span>Singleton<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>singleton <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">// &#x4E0D;&#x8FC7;&#x53EF;&#x80FD;&#x6709;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#x90FD;&#x8FDB;&#x5165;&#x4E86;&#x4E0A;&#x4E00;&#x4E2A;if&#x5757;&#xFF0C;&#x4F5C;&#x7528;&#x8FD9;&#x91CC;&#x8981;&#x518D;&#x52A0;&#x4E00;&#x5C42;&#x5224;&#x65AD;</span>
+                    singleton <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Singleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &#x771F;&#x6B63;&#x9700;&#x8981;&#x540C;&#x6B65;&#x6267;&#x884C;&#x5C31;&#x662F;&#x8FD9;&#x53E5;&#xFF01;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> singleton<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="static&#x5185;&#x90E8;&#x7C7B;&#xFF08;&#x4E0D;&#x9002;&#x7528;&#x4E8E;&#x5E8F;&#x5217;&#x5316;&#xFF09;"><a name="static&#x5185;&#x90E8;&#x7C7B;&#xFF08;&#x4E0D;&#x9002;&#x7528;&#x4E8E;&#x5E8F;&#x5217;&#x5316;&#xFF09;" class="anchor-navigation-ex-anchor" href="#static&#x5185;&#x90E8;&#x7C7B;&#xFF08;&#x4E0D;&#x9002;&#x7528;&#x4E8E;&#x5E8F;&#x5217;&#x5316;&#xFF09;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3.2. static&#x5185;&#x90E8;&#x7C7B;&#xFF08;&#x4E0D;&#x9002;&#x7528;&#x4E8E;&#x5E8F;&#x5217;&#x5316;&#xFF09;</h3>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Singleton</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">SingletonHandle</span> <span class="token punctuation">{</span> <span class="token comment">// &#x628A;&#x5355;&#x4F8B;&#x5BF9;&#x8C61;&#x653E;&#x5728;&#x9759;&#x6001;&#x5185;&#x90E8;&#x7C7B;&#x4E2D;</span>
+        <span class="token keyword">private</span> <span class="token keyword">static</span> Singleton singleton <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Singleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token function">Singleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> Singleton <span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> SingletonHandle<span class="token punctuation">.</span>singleton<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="static&#x4EE3;&#x7801;&#x5757;"><a name="static&#x4EE3;&#x7801;&#x5757;" class="anchor-navigation-ex-anchor" href="#static&#x4EE3;&#x7801;&#x5757;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3.3. static&#x4EE3;&#x7801;&#x5757;</h3>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Singleton</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> Singleton singleton<span class="token punctuation">;</span>
+
+    <span class="token keyword">static</span> <span class="token punctuation">{</span>
+        singleton <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Singleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &#x5728;&#x9759;&#x6001;&#x4EE3;&#x7801;&#x5757;&#x4E2D;&#x5B9E;&#x4F8B;&#x5316;&#x5BF9;&#x8C61;&#xFF0C;&#x611F;&#x89C9;&#x548C;&#x997F;&#x6C49;&#x6A21;&#x5F0F;&#x6CA1;&#x5565;&#x533A;&#x522B;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token function">Singleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> Singleton <span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> singleton<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="enum&#x6570;&#x636E;&#x7C7B;&#x578B;"><a name="enum&#x6570;&#x636E;&#x7C7B;&#x578B;" class="anchor-navigation-ex-anchor" href="#enum&#x6570;&#x636E;&#x7C7B;&#x578B;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3.4. enum&#x6570;&#x636E;&#x7C7B;&#x578B;</h3>
+<pre class="language-"><code class="lang-java"><span class="token comment">/**
+ * &#x901A;&#x8FC7;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x7C7B;&#x578B;&#x7684;&#x679A;&#x4E3E;&#x7C7B;&#x5B9E;&#x73B0;&#x5355;&#x4F8B;
+ * &#x4E0D;&#x8FC7;&#x4E3A;&#x4E86;&#x4FDD;&#x8BC1;&#x201C;&#x804C;&#x8D23;&#x5355;&#x4E00;&#x539F;&#x5219;&#x201D;&#xFF0C;&#x6211;&#x4EEC;&#x8981;&#x628A;&#x8FD9;&#x4E2A;enum&#x7528;class&#x5305;&#x88C5;&#x4E00;&#x4E0B;
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">EnumSingleton</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">enum</span> MyEnumSingleton <span class="token punctuation">{</span>
+        singletonFactory<span class="token punctuation">;</span> <span class="token comment">// &#x679A;&#x4E3E;&#x4E2D;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x7C7B;&#x578B;</span>
+
+        <span class="token keyword">private</span> EnumSingleton singleton<span class="token punctuation">;</span> <span class="token comment">// &#x628A;&#x771F;&#x6B63;&#x7684;&#x5355;&#x4F8B;&#x5BF9;&#x8C61;&#x653E;&#x5728;&#x679A;&#x4E3E;&#x7C7B;&#x4E2D;</span>
+
+        <span class="token keyword">private</span> <span class="token function">MyEnumSingleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            singleton <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EnumSingleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> EnumSingleton <span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> singleton<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> EnumSingleton <span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> MyEnumSingleton<span class="token punctuation">.</span>singletonFactory<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7684;&#x5E8F;&#x5217;&#x5316;&#x548C;&#x53CD;&#x5E8F;&#x5217;&#x5316;"><a name="&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7684;&#x5E8F;&#x5217;&#x5316;&#x548C;&#x53CD;&#x5E8F;&#x5217;&#x5316;" class="anchor-navigation-ex-anchor" href="#&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7684;&#x5E8F;&#x5217;&#x5316;&#x548C;&#x53CD;&#x5E8F;&#x5217;&#x5316;"><i class="fa fa-link" aria-hidden="true"></i></a>1.4. &#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7684;&#x5E8F;&#x5217;&#x5316;&#x548C;&#x53CD;&#x5E8F;&#x5217;&#x5316;</h2>
+<p>&#x4E0D;&#x8FC7;&#x5F53;&#x6211;&#x4EEC;&#x5728;&#x4E00;&#x4E2A;&#x7A0B;&#x5E8F;&#x4E2D;&#x5BF9;&#x5355;&#x4F8B;&#x5BF9;&#x8C61;&#x8FDB;&#x884C;&#x4E86;&#x5E8F;&#x5217;&#x5316;&#x548C;&#x53CD;&#x5E8F;&#x5217;&#x5316;&#x64CD;<em>&#xFF08;&#x5FC5;&#x987B;&#x662F;&#x4E00;&#x4E2A;&#x7A0B;&#x5E8F;&#x4E2D;&#xFF0C;&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x7A0B;&#x5E8F;&#x8FDB;&#x884C;&#x5E8F;&#x5217;&#x5316;&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x7A0B;&#x5E8F;&#x8FDB;&#x884C;&#x53CD;&#x5E8F;&#x5217;&#x5316;&#x662F;&#x80AF;&#x5B9A;&#x4E0D;&#x4E00;&#x6837;&#x7684;&#xFF09;</em>&#xFF0C;&#x5E8F;&#x5217;&#x5316;&#x524D;&#x540E;&#x7684;&#x5355;&#x4F8B;&#x5BF9;&#x8C61;&#x5E76;&#x4E0D;&#x662F;&#x540C;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x4E00;&#x4E2A;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;&#x901A;&#x8FC7; static &#x5185;&#x90E8;&#x7C7B;&#x5B9E;&#x73B0;&#x7684;&#x5355;&#x4F8B;&#x5BF9;&#x8C61;&#xFF0C;&#x6211;&#x4EEC;&#x8FDB;&#x884C;&#x5982;&#x4E0B;&#x64CD;&#x4F5C;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SaveAndRead</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            Singleton singleton <span class="token operator">=</span> Singleton<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            FileOutputStream fos <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileOutputStream</span><span class="token punctuation">(</span>
+                <span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span><span class="token string">&quot;MultiThread/src/ch6/staticclass/singletonFile.txt&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            ObjectOutputStream oos <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ObjectOutputStream</span><span class="token punctuation">(</span>fos<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            oos<span class="token punctuation">.</span><span class="token function">writeObject</span><span class="token punctuation">(</span>singleton<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            oos<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            fos<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>singleton<span class="token punctuation">.</span><span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">FileNotFoundException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IOException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            FileInputStream fis <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileInputStream</span><span class="token punctuation">(</span>
+                <span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span><span class="token string">&quot;MultiThread/src/ch6/staticclass/singletonFile.txt&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            ObjectInputStream ois <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ObjectInputStream</span><span class="token punctuation">(</span>fis<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            Singleton singleton <span class="token operator">=</span> <span class="token punctuation">(</span>Singleton<span class="token punctuation">)</span> ois<span class="token punctuation">.</span><span class="token function">readObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            ois<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            fis<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>singleton<span class="token punctuation">.</span><span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">FileNotFoundException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IOException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">ClassNotFoundException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x5F97;&#x5230;&#x8FD0;&#x884C;&#x7ED3;&#x679C;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code>312714112
+668386784 // &#x5E8F;&#x5217;&#x5316;&#x524D;&#x540E;&#x5BF9;&#x8C61;&#x7684;hashCode&#x6539;&#x53D8;&#x4E86;
+</code></pre><p>&#x8981;&#x60F3;&#x4FDD;&#x8BC1;&#x662F;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x6211;&#x4EEC;&#x8981;&#x5728; Singleton &#x7C7B;&#x4E2D;&#x52A0;&#x5165;&#x8FD9;&#x6837;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token comment">/**
+ * &#x5F53;JVM&#x4ECE;&#x5185;&#x5B58;&#x4E2D;&#x53CD;&#x5E8F;&#x5217;&#x5316;&#x5730;&#x7EC4;&#x88C5;&#x4E00;&#x4E2A;&#x65B0;&#x5BF9;&#x8C61;&#x65F6;&#xFF0C;&#x4F1A;&#x81EA;&#x52A8;&#x8C03;&#x7528;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x6211;&#x4EEC;&#x7684;&#x6307;&#x5B9A;&#x5BF9;&#x8C61;
+ */</span>
+<span class="token keyword">protected</span> Object <span class="token function">readResolve</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> ObjectStreamException <span class="token punctuation">{</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;&#x8C03;&#x7528;&#x4E86;readResolve&#x65B9;&#x6CD5;&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> SingletonHandle<span class="token punctuation">.</span>singleton<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x8FD0;&#x884C;&#x7ED3;&#x679C;&#xFF1A;</p>
+<pre class="language-"><code>312714112
+&#x8C03;&#x7528;&#x4E86;readResolve&#x65B9;&#x6CD5;
+312714112 // &#x5E8F;&#x5217;&#x5316;&#x524D;&#x540E;&#x5BF9;&#x8C61;&#x7684;hashCode&#x4E0D;&#x53D8;
+</code></pre>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: 6. 单例模式与多线程">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../Ch7-拾遗增补/" class="navigation navigation-next " aria-label="Next page: 7. 拾遗增补">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"6.1. 单例模式与多线程","level":"1.7.1","depth":2,"next":{"title":"7. 拾遗增补","level":"1.8","depth":1,"path":"Ch7-拾遗增补/README.md","ref":"Ch7-拾遗增补/README.md","articles":[{"title":"7.1. 线程的状态","level":"1.8.1","depth":2,"path":"Ch7-拾遗增补/01-线程的状态.md","ref":"Ch7-拾遗增补/01-线程的状态.md","articles":[]},{"title":"7.2. 线程组","level":"1.8.2","depth":2,"path":"Ch7-拾遗增补/02-线程组.md","ref":"Ch7-拾遗增补/02-线程组.md","articles":[]},{"title":"7.3. SimpleDataFormat类的非线程安全处理","level":"1.8.3","depth":2,"path":"Ch7-拾遗增补/03-SimpleDataFormat类的非线程安全处理.md","ref":"Ch7-拾遗增补/03-SimpleDataFormat类的非线程安全处理.md","articles":[]},{"title":"7.4. 线程中的异常处理","level":"1.8.4","depth":2,"path":"Ch7-拾遗增补/04-线程中的异常处理.md","ref":"Ch7-拾遗增补/04-线程中的异常处理.md","articles":[]}]},"previous":{"title":"6. 单例模式与多线程","level":"1.7","depth":1,"path":"Ch6-单例模式与多线程/README.md","ref":"Ch6-单例模式与多线程/README.md","articles":[{"title":"6.1. 单例模式与多线程","level":"1.7.1","depth":2,"path":"Ch6-单例模式与多线程/01-单例模式与多线程.md","ref":"Ch6-单例模式与多线程/01-单例模式与多线程.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["prism","anchor-navigation-ex","github","github-buttons","-highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/kuangshp/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"level1Icon":"fa fa-hand-o-right","level2Icon":"fa fa-hand-o-right","level3Icon":"fa fa-hand-o-right","showLevelIcon":true},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showLevel":true},"github-buttons":{"buttons":[{"user":"kuangshp","repo":"mysql","type":"star","size":"small","count":true}]},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":14,"fontFamily":"SimSun","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":30,"left":30,"top":30,"bottom":50}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Java多线程编程核心技术笔记","gitbook":"*"},"file":{"path":"Ch6-单例模式与多线程/01-单例模式与多线程.md","mtime":"2018-08-15T04:38:29.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-20T06:32:20.556Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

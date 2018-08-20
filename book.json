@@ -3,9 +3,23 @@
     "plugins": [
         "prism",
         "anchor-navigation-ex",
+        "github",
+        "github-buttons",
         "-highlight"
     ],
     "pluginsConfig": {
+        "github": {
+            "url": "https://github.com/kuangshp/"
+        },
+        "github-buttons": {
+            "buttons": [{
+            "user": "kuangshp",
+            "repo": "mysql",
+            "type": "star",
+            "size": "small",
+            "count": true
+            }]
+        },
         "anchor-navigation-ex": {
             "float": { 
                 "showLevelIcon": true,
@@ -15,8 +29,10 @@
             }
         }
     },
+
     "pdf": {
         "pageNumbers": true,
+        "fontFamily": "SimSun",
         "fontSize": 14,
         "paperSize": "a4",
         "margin": {

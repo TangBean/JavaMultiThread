@@ -1,0 +1,636 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>7.2. 线程组 · Java多线程编程核心技术笔记</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="03-SimpleDataFormat类的非线程安全处理.html" />
+    
+    
+    <link rel="prev" href="01-线程的状态.html" />
+    
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"buttons":[{"user":"kuangshp","repo":"mysql","type":"star","size":"small","count":true}]};
+    </script>
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../Ch1-Java多线程技能/">
+            
+                <a href="../Ch1-Java多线程技能/">
+            
+                    
+                    1. Java多线程技能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../Ch1-Java多线程技能/Java多线程概述.html">
+            
+                <a href="../Ch1-Java多线程技能/Java多线程概述.html">
+            
+                    
+                    1.1 Java多线程概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../Ch2-对象及变量的并发访问/">
+            
+                <a href="../Ch2-对象及变量的并发访问/">
+            
+                    
+                    2. 对象及变量的并发访问
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../Ch2-对象及变量的并发访问/01-synchronized同步方法.html">
+            
+                <a href="../Ch2-对象及变量的并发访问/01-synchronized同步方法.html">
+            
+                    
+                    2.1. synchronized同步方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../Ch2-对象及变量的并发访问/02-volatile关键字.html">
+            
+                <a href="../Ch2-对象及变量的并发访问/02-volatile关键字.html">
+            
+                    
+                    2.2. volatile关键字
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../Ch3-线程间通信/">
+            
+                <a href="../Ch3-线程间通信/">
+            
+                    
+                    3. 线程间通信
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../Ch3-线程间通信/01-等待通知机制.html">
+            
+                <a href="../Ch3-线程间通信/01-等待通知机制.html">
+            
+                    
+                    3.1. 等待通知机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../Ch3-线程间通信/02-join方法.html">
+            
+                <a href="../Ch3-线程间通信/02-join方法.html">
+            
+                    
+                    3.2. join方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../Ch3-线程间通信/03-ThreadLocal类.html">
+            
+                <a href="../Ch3-线程间通信/03-ThreadLocal类.html">
+            
+                    
+                    3.3. ThreadLocal类
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../Ch4-Lock的使用/">
+            
+                <a href="../Ch4-Lock的使用/">
+            
+                    
+                    4. Lock的使用
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../Ch4-Lock的使用/01-ReentrantLock类.html">
+            
+                <a href="../Ch4-Lock的使用/01-ReentrantLock类.html">
+            
+                    
+                    4.1. ReentrantLock类
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../Ch5-定时器Timer/">
+            
+                <a href="../Ch5-定时器Timer/">
+            
+                    
+                    5. 定时器Timer
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../Ch5-定时器Timer/01-定时器Timer.html">
+            
+                <a href="../Ch5-定时器Timer/01-定时器Timer.html">
+            
+                    
+                    5.1. 定时器Timer
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../Ch6-单例模式与多线程/">
+            
+                <a href="../Ch6-单例模式与多线程/">
+            
+                    
+                    6. 单例模式与多线程
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../Ch6-单例模式与多线程/01-单例模式与多线程.html">
+            
+                <a href="../Ch6-单例模式与多线程/01-单例模式与多线程.html">
+            
+                    
+                    6.1. 单例模式与多线程
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    7. 拾遗增补
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="01-线程的状态.html">
+            
+                <a href="01-线程的状态.html">
+            
+                    
+                    7.1. 线程的状态
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.8.2" data-path="02-线程组.html">
+            
+                <a href="02-线程组.html">
+            
+                    
+                    7.2. 线程组
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="03-SimpleDataFormat类的非线程安全处理.html">
+            
+                <a href="03-SimpleDataFormat类的非线程安全处理.html">
+            
+                    
+                    7.3. SimpleDataFormat类的非线程安全处理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="04-线程中的异常处理.html">
+            
+                <a href="04-线程中的异常处理.html">
+            
+                    
+                    7.4. 线程中的异常处理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >7.2. 线程组</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-anchor"></i><ul><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x7EBF;&#x7A0B;&#x7EC4;"><b>1. </b>&#x7EBF;&#x7A0B;&#x7EC4;</a></li><ul><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x64CD;&#x4F5C;&#x7EBF;&#x7A0B;&#x7EC4;&#x7684;&#x5E38;&#x7528;&#x65B9;&#x6CD5;"><b>1.1. </b>&#x64CD;&#x4F5C;&#x7EBF;&#x7A0B;&#x7EC4;&#x7684;&#x5E38;&#x7528;&#x65B9;&#x6CD5;</a></li><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x6279;&#x91CF;&#x505C;&#x6B62;&#x7EC4;&#x5185;&#x7EBF;&#x7A0B;"><b>1.2. </b>&#x6279;&#x91CF;&#x505C;&#x6B62;&#x7EC4;&#x5185;&#x7EBF;&#x7A0B;</a></li><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x9012;&#x5F52;&#x4E0E;&#x975E;&#x9012;&#x5F52;&#x53D6;&#x5F97;&#x7EC4;&#x5185;&#x5BF9;&#x8C61;"><b>1.3. </b>&#x9012;&#x5F52;&#x4E0E;&#x975E;&#x9012;&#x5F52;&#x53D6;&#x5F97;&#x7EC4;&#x5185;&#x5BF9;&#x8C61;</a></li></ul></ul></div><a href="#&#x7EBF;&#x7A0B;&#x7EC4;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><h1 id="&#x7EBF;&#x7A0B;&#x7EC4;"><a name="&#x7EBF;&#x7A0B;&#x7EC4;" class="anchor-navigation-ex-anchor" href="#&#x7EBF;&#x7A0B;&#x7EC4;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x7EBF;&#x7A0B;&#x7EC4;</h1>
+<p><strong>&#x7EBF;&#x7A0B;&#x7EC4;&#x7684;&#x4F5C;&#x7528;&#xFF1A;</strong>&#x6279;&#x91CF;&#x7BA1;&#x7406;&#x7EBF;&#x7A0B;&#x6216;&#x8005;&#x7EBF;&#x7A0B;&#x7EC4;&#xFF0C;&#x7EBF;&#x7A0B;&#x7EC4;&#x4E2D;&#x65E2;&#x53EF;&#x4EE5;&#x6709;&#x7EBF;&#x7A0B;&#x5BF9;&#x8C61;&#x4E5F;&#x53EF;&#x4EE5;&#x6709;&#x7EBF;&#x7A0B;&#x7EC4;&#x5BF9;&#x8C61;&#x3002;</p>
+<p>&#x6CE8;&#x610F;&#xFF1A;&#x5B9E;&#x4F8B;&#x5316;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x7EC4;&#x65F6;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x6307;&#x5B9A;&#x6240;&#x5C5E;&#x7684;&#x7EBF;&#x7A0B;&#x7EC4;&#xFF0C;&#x5C31;&#x81EA;&#x52A8;&#x5F52;&#x5230;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x5BF9;&#x8C61;&#x6240;&#x5C5E;&#x7684;&#x7EBF;&#x7A0B;&#x7EC4;&#x3002;</p>
+<h2 id="&#x64CD;&#x4F5C;&#x7EBF;&#x7A0B;&#x7EC4;&#x7684;&#x5E38;&#x7528;&#x65B9;&#x6CD5;"><a name="&#x64CD;&#x4F5C;&#x7EBF;&#x7A0B;&#x7EC4;&#x7684;&#x5E38;&#x7528;&#x65B9;&#x6CD5;" class="anchor-navigation-ex-anchor" href="#&#x64CD;&#x4F5C;&#x7EBF;&#x7A0B;&#x7EC4;&#x7684;&#x5E38;&#x7528;&#x65B9;&#x6CD5;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. &#x64CD;&#x4F5C;&#x7EBF;&#x7A0B;&#x7EC4;&#x7684;&#x5E38;&#x7528;&#x65B9;&#x6CD5;</h2>
+<p>&#x4E0B;&#x9762;&#x901A;&#x8FC7;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#x6765;&#x8BF4;&#x660E; ThreadGroup &#x4E2D;&#x7684;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">package</span> ch7<span class="token punctuation">.</span>threadgroup<span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * &#x6F14;&#x793A;&#x7EBF;&#x7A0B;&#x7EC4;&#x7684;&#x5404;&#x79CD;&#x64CD;&#x4F5C;&#x65B9;&#x6CD5;
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Run</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// &#x51C6;&#x5907;&#x5DE5;&#x4F5C;</span>
+        Runnable runnable <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Runnable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token annotation punctuation">@Override</span>
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">3000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+        <span class="token comment">// &#x83B7;&#x53D6;&#x7EBF;&#x7EC4;&#x540D;&#x79F0;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">&quot;&#x7EBF;&#x7A0B;&#x7EC4;&#x7684;&#x540D;&#x79F0;&#xFF1A;&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getThreadGroup</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">// &#x83B7;&#x53D6;&#x7EBF;&#x7A0B;&#x7EC4;&#x4E2D;&#x6D3B;&#x52A8;&#x7EBF;&#x7A0B;&#x7684;&#x6570;&#x91CF;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">&quot;&#x7EBF;&#x7A0B;&#x7EC4;&#x4E2D;&#x6D3B;&#x52A8;&#x7EBF;&#x7A0B;&#x7684;&#x6570;&#x91CF;&#xFF1A;&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getThreadGroup</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">activeCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">// &#x65B0;&#x5EFA;&#x7EBF;&#x7A0B;&#x7EC4;newGroup&#x5E76;&#x628A;&#x5B83;&#x52A0;&#x5165;main&#x7EBF;&#x7A0B;&#x7EC4;&#xFF0C;&#x65B0;&#x5EFA;&#x7EBF;&#x7A0B;&#x5E76;&#x52A0;&#x5165;newGroup</span>
+        Thread runnableA <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span>runnable<span class="token punctuation">,</span> <span class="token string">&quot;runnableA&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Thread runnableB <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span>runnable<span class="token punctuation">,</span> <span class="token string">&quot;runnableB&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// &#x8981;&#x70B9;&#x65B9;&#x6CD5;&#xFF1A;&#x6DFB;&#x52A0;&#x7EBF;&#x7A0B;&#x7EC4;&#x6216;&#x7EBF;&#x7A0B;&#x5230;&#x7EBF;&#x7A0B;&#x7EC4;&#x4E2D;</span>
+        <span class="token comment">// &#x5373;&#x4F7F;&#x6211;&#x4EEC;&#x8FD9;&#x4E48;&#x5199;&#xFF1A;</span>
+        <span class="token comment">// ThreadGroup group = new ThreadGroup(&quot;newGroup&quot;);</span>
+        <span class="token comment">// &#x6548;&#x679C;&#x548C;&#x4E0B;&#x4E00;&#x53E5;&#x4E5F;&#x662F;&#x4E00;&#x6837;&#x7684;&#xFF0C;</span>
+        <span class="token comment">// &#x56E0;&#x4E3A;&#x5B9E;&#x4F8B;&#x5316;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x7EC4;&#x65F6;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x6307;&#x5B9A;&#x6240;&#x5C5E;&#x7684;&#x7EBF;&#x7A0B;&#x7EC4;&#xFF0C;&#x5C31;&#x81EA;&#x52A8;&#x5F52;&#x5230;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x5BF9;&#x8C61;&#x6240;&#x5C5E;&#x7684;&#x7EBF;&#x7A0B;&#x7EC4;</span>
+        ThreadGroup group <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ThreadGroup</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getThreadGroup</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&quot;newGroup&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Thread threadA <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span>group<span class="token punctuation">,</span> runnableA<span class="token punctuation">,</span> <span class="token string">&quot;threadA&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Thread threadB <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span>group<span class="token punctuation">,</span> runnableB<span class="token punctuation">,</span> <span class="token string">&quot;threadB&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        threadA<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        threadB<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">// &#x83B7;&#x53D6;&#x7EBF;&#x7A0B;&#x7EC4;&#x4E2D;&#x7EBF;&#x7A0B;&#x7EC4;&#x7684;&#x6570;&#x91CF;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">&quot;&#x7EBF;&#x7A0B;&#x7EC4;&#x4E2D;&#x6D3B;&#x52A8;&#x7EBF;&#x7A0B;&#x7684;&#x6570;&#x91CF;&#xFF1A;&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getThreadGroup</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">activeCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">// &#x83B7;&#x53D6;&#x7EBF;&#x7A0B;&#x7EC4;&#x7684;&#x7236;&#x7EBF;&#x7A0B;&#x7EC4;&#x7684;&#x540D;&#x79F0;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">&quot;main&#x7684;&#x7236;&#x7EBF;&#x7A0B;&#x7EC4;&#x540D;&#x79F0;&#xFF1A;&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getThreadGroup</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getParent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">&quot;newGroup&#x7684;&#x7236;&#x7EBF;&#x7A0B;&#x7EC4;&#x540D;&#x79F0;&#xFF1A;&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>group<span class="token punctuation">.</span><span class="token function">getParent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x8FD0;&#x884C;&#x7ED3;&#x679C;&#xFF1A;</p>
+<pre class="language-"><code>&#x7EBF;&#x7A0B;&#x7EC4;&#x7684;&#x540D;&#x79F0;&#xFF1A;main
+&#x7EBF;&#x7A0B;&#x7EC4;&#x4E2D;&#x6D3B;&#x52A8;&#x7EBF;&#x7A0B;&#x7684;&#x6570;&#x91CF;&#xFF1A;2
+&#x7EBF;&#x7A0B;&#x7EC4;&#x4E2D;&#x6D3B;&#x52A8;&#x7EBF;&#x7A0B;&#x7684;&#x6570;&#x91CF;&#xFF1A;4
+main&#x7684;&#x7236;&#x7EBF;&#x7A0B;&#x7EC4;&#x540D;&#x79F0;&#xFF1A;system
+newGroup&#x7684;&#x7236;&#x7EBF;&#x7A0B;&#x7EC4;&#x540D;&#x79F0;&#xFF1A;main
+threadA
+threadB
+</code></pre><h2 id="&#x6279;&#x91CF;&#x505C;&#x6B62;&#x7EC4;&#x5185;&#x7EBF;&#x7A0B;"><a name="&#x6279;&#x91CF;&#x505C;&#x6B62;&#x7EC4;&#x5185;&#x7EBF;&#x7A0B;" class="anchor-navigation-ex-anchor" href="#&#x6279;&#x91CF;&#x505C;&#x6B62;&#x7EC4;&#x5185;&#x7EBF;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. &#x6279;&#x91CF;&#x505C;&#x6B62;&#x7EC4;&#x5185;&#x7EBF;&#x7A0B;</h2>
+<p><em>(&#x89C1; ch7.interrupt.Run.java)</em></p>
+<p>&#x5C06;&#x7EBF;&#x7A0B;&#x5F52;&#x5C5E;&#x5230;&#x7EBF;&#x7A0B;&#x7EC4;&#x4E2D;&#xFF0C;&#x8C03;&#x7528; ThreadGroup#interrupt() &#x65B9;&#x6CD5;&#xFF0C;&#x53EF;&#x5C06;&#x7EC4;&#x5185;&#x6B63;&#x5728;&#x8FD0;&#x884C;&#x7684;&#x7EBF;&#x7A0B;&#x6279;&#x91CF;&#x505C;&#x6B62;&#x3002;</p>
+<h2 id="&#x9012;&#x5F52;&#x4E0E;&#x975E;&#x9012;&#x5F52;&#x53D6;&#x5F97;&#x7EC4;&#x5185;&#x5BF9;&#x8C61;"><a name="&#x9012;&#x5F52;&#x4E0E;&#x975E;&#x9012;&#x5F52;&#x53D6;&#x5F97;&#x7EC4;&#x5185;&#x5BF9;&#x8C61;" class="anchor-navigation-ex-anchor" href="#&#x9012;&#x5F52;&#x4E0E;&#x975E;&#x9012;&#x5F52;&#x53D6;&#x5F97;&#x7EC4;&#x5185;&#x5BF9;&#x8C61;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3. &#x9012;&#x5F52;&#x4E0E;&#x975E;&#x9012;&#x5F52;&#x53D6;&#x5F97;&#x7EC4;&#x5185;&#x5BF9;&#x8C61;</h2>
+<p><em>(&#x89C1; ch7.enumerate.Run.java)</em></p>
+<p>&#x9012;&#x5F52;&#x7684;&#x83B7;&#x53D6;&#x7EC4;&#x5185;&#x5BF9;&#x8C61;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java">ThreadGroup<span class="token punctuation">[</span><span class="token punctuation">]</span> listGroupTrue <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ThreadGroup</span><span class="token punctuation">[</span>mainGroup<span class="token punctuation">.</span><span class="token function">activeGroupCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+mainGroup<span class="token punctuation">.</span><span class="token function">enumerate</span><span class="token punctuation">(</span>listGroupTrue<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>&#x975E;&#x9012;&#x5F52;&#x7684;&#x83B7;&#x53D6;&#x7EC4;&#x5185;&#x5BF9;&#x8C61;&#xFF08;&#x5373;&#x53EA;&#x53D6;&#x4E00;&#x5C42;&#x7684;&#xFF09;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java">ThreadGroup<span class="token punctuation">[</span><span class="token punctuation">]</span> listGroupFalse <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ThreadGroup</span><span class="token punctuation">[</span>mainGroup<span class="token punctuation">.</span><span class="token function">activeGroupCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+mainGroup<span class="token punctuation">.</span><span class="token function">enumerate</span><span class="token punctuation">(</span>listGroupFalse<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="01-线程的状态.html" class="navigation navigation-prev " aria-label="Previous page: 7.1. 线程的状态">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="03-SimpleDataFormat类的非线程安全处理.html" class="navigation navigation-next " aria-label="Next page: 7.3. SimpleDataFormat类的非线程安全处理">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"7.2. 线程组","level":"1.8.2","depth":2,"next":{"title":"7.3. SimpleDataFormat类的非线程安全处理","level":"1.8.3","depth":2,"path":"Ch7-拾遗增补/03-SimpleDataFormat类的非线程安全处理.md","ref":"Ch7-拾遗增补/03-SimpleDataFormat类的非线程安全处理.md","articles":[]},"previous":{"title":"7.1. 线程的状态","level":"1.8.1","depth":2,"path":"Ch7-拾遗增补/01-线程的状态.md","ref":"Ch7-拾遗增补/01-线程的状态.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","anchor-navigation-ex","github","github-buttons","-highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/kuangshp/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"level1Icon":"fa fa-hand-o-right","level2Icon":"fa fa-hand-o-right","level3Icon":"fa fa-hand-o-right","showLevelIcon":true},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showLevel":true},"github-buttons":{"buttons":[{"user":"kuangshp","repo":"mysql","type":"star","size":"small","count":true}]},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":14,"fontFamily":"SimSun","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":30,"left":30,"top":30,"bottom":50}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Java多线程编程核心技术笔记","gitbook":"*"},"file":{"path":"Ch7-拾遗增补/02-线程组.md","mtime":"2018-08-16T03:58:54.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-20T06:32:20.556Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

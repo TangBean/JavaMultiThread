@@ -1,0 +1,632 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>3.3. ThreadLocal类 · Java多线程编程核心技术笔记</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../Ch4-Lock的使用/" />
+    
+    
+    <link rel="prev" href="02-join方法.html" />
+    
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"buttons":[{"user":"kuangshp","repo":"mysql","type":"star","size":"small","count":true}]};
+    </script>
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../Ch1-Java多线程技能/">
+            
+                <a href="../Ch1-Java多线程技能/">
+            
+                    
+                    1. Java多线程技能
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../Ch1-Java多线程技能/Java多线程概述.html">
+            
+                <a href="../Ch1-Java多线程技能/Java多线程概述.html">
+            
+                    
+                    1.1 Java多线程概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../Ch2-对象及变量的并发访问/">
+            
+                <a href="../Ch2-对象及变量的并发访问/">
+            
+                    
+                    2. 对象及变量的并发访问
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../Ch2-对象及变量的并发访问/01-synchronized同步方法.html">
+            
+                <a href="../Ch2-对象及变量的并发访问/01-synchronized同步方法.html">
+            
+                    
+                    2.1. synchronized同步方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../Ch2-对象及变量的并发访问/02-volatile关键字.html">
+            
+                <a href="../Ch2-对象及变量的并发访问/02-volatile关键字.html">
+            
+                    
+                    2.2. volatile关键字
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    3. 线程间通信
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="01-等待通知机制.html">
+            
+                <a href="01-等待通知机制.html">
+            
+                    
+                    3.1. 等待通知机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="02-join方法.html">
+            
+                <a href="02-join方法.html">
+            
+                    
+                    3.2. join方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4.3" data-path="03-ThreadLocal类.html">
+            
+                <a href="03-ThreadLocal类.html">
+            
+                    
+                    3.3. ThreadLocal类
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../Ch4-Lock的使用/">
+            
+                <a href="../Ch4-Lock的使用/">
+            
+                    
+                    4. Lock的使用
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../Ch4-Lock的使用/01-ReentrantLock类.html">
+            
+                <a href="../Ch4-Lock的使用/01-ReentrantLock类.html">
+            
+                    
+                    4.1. ReentrantLock类
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../Ch5-定时器Timer/">
+            
+                <a href="../Ch5-定时器Timer/">
+            
+                    
+                    5. 定时器Timer
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../Ch5-定时器Timer/01-定时器Timer.html">
+            
+                <a href="../Ch5-定时器Timer/01-定时器Timer.html">
+            
+                    
+                    5.1. 定时器Timer
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../Ch6-单例模式与多线程/">
+            
+                <a href="../Ch6-单例模式与多线程/">
+            
+                    
+                    6. 单例模式与多线程
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../Ch6-单例模式与多线程/01-单例模式与多线程.html">
+            
+                <a href="../Ch6-单例模式与多线程/01-单例模式与多线程.html">
+            
+                    
+                    6.1. 单例模式与多线程
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../Ch7-拾遗增补/">
+            
+                <a href="../Ch7-拾遗增补/">
+            
+                    
+                    7. 拾遗增补
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../Ch7-拾遗增补/01-线程的状态.html">
+            
+                <a href="../Ch7-拾遗增补/01-线程的状态.html">
+            
+                    
+                    7.1. 线程的状态
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../Ch7-拾遗增补/02-线程组.html">
+            
+                <a href="../Ch7-拾遗增补/02-线程组.html">
+            
+                    
+                    7.2. 线程组
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../Ch7-拾遗增补/03-SimpleDataFormat类的非线程安全处理.html">
+            
+                <a href="../Ch7-拾遗增补/03-SimpleDataFormat类的非线程安全处理.html">
+            
+                    
+                    7.3. SimpleDataFormat类的非线程安全处理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="../Ch7-拾遗增补/04-线程中的异常处理.html">
+            
+                <a href="../Ch7-拾遗增补/04-线程中的异常处理.html">
+            
+                    
+                    7.4. 线程中的异常处理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >3.3. ThreadLocal类</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-anchor"></i><ul><li><span class="title-icon fa fa-hand-o-right"></span><a href="#threadlocal&#x7C7B;"><b>1. </b>ThreadLocal&#x7C7B;</a></li><ul><li><span class="title-icon fa fa-hand-o-right"></span><a href="#threadlocal&#x7684;&#x4F5C;&#x7528;"><b>1.1. </b>ThreadLocal&#x7684;&#x4F5C;&#x7528;</a></li><li><span class="title-icon fa fa-hand-o-right"></span><a href="#threadlocal&#x7684;&#x539F;&#x7406;"><b>1.2. </b>ThreadLocal&#x7684;&#x539F;&#x7406;</a></li><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x89E3;&#x51B3;&#x7B2C;&#x4E00;&#x6B21;&#x4F7F;&#x7528;get&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;null&#x95EE;&#x9898;"><b>1.3. </b>&#x89E3;&#x51B3;&#x7B2C;&#x4E00;&#x6B21;&#x4F7F;&#x7528;get()&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;null&#x95EE;&#x9898;</a></li><li><span class="title-icon fa fa-hand-o-right"></span><a href="#inheritablethreadlocal&#x7C7B;"><b>1.4. </b>InheritableThreadLocal&#x7C7B;</a></li></ul></ul></div><a href="#threadlocal&#x7C7B;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><h1 id="threadlocal&#x7C7B;"><a name="threadlocal&#x7C7B;" class="anchor-navigation-ex-anchor" href="#threadlocal&#x7C7B;"><i class="fa fa-link" aria-hidden="true"></i></a>1. ThreadLocal&#x7C7B;</h1>
+<h2 id="threadlocal&#x7684;&#x4F5C;&#x7528;"><a name="threadlocal&#x7684;&#x4F5C;&#x7528;" class="anchor-navigation-ex-anchor" href="#threadlocal&#x7684;&#x4F5C;&#x7528;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. ThreadLocal&#x7684;&#x4F5C;&#x7528;</h2>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728;&#x7C7B;&#x4E2D;&#x5B9A;&#x4E49; static &#x53D8;&#x91CF;&#xFF0C;&#x8FD9;&#x6837;&#x8FD9;&#x4E2A;&#x7C7B;&#x4E2D;&#x7684;&#x6BCF;&#x4E2A;&#x5BF9;&#x8C61;&#x90FD;&#x4F1A;&#x5171;&#x4EAB;&#x8FD9;&#x4E2A;&#x53D8;&#x91CF;&#xFF0C;&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x60F3;&#x8981;&#x5BF9;&#x8FD9;&#x4E2A;&#x5171;&#x4EAB;&#x8FDB;&#x884C;&#x5212;&#x5206;&#xFF0C;&#x5212;&#x5206;&#x7684;&#x539F;&#x5219;&#x662F;&#xFF1A;&#x540C;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x5171;&#x4EAB;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#xFF0C;&#x4E0D;&#x540C;&#x7684;&#x7EBF;&#x7A0B;&#x5171;&#x4EAB;&#x53E6;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x3002;&#x60F3;&#x8981;&#x5B9E;&#x73B0;&#x8FD9;&#x6837;&#x7684;&#x529F;&#x80FD;&#x8981;&#x7528;&#x5230;&#xFF1A;ThreadLocal &#x7C7B;&#x3002;</p>
+<p>ThreadLocal &#x6709;&#x5982;&#x4E0B; 3 &#x4E2A;&#x6BD4;&#x8F83;&#x91CD;&#x8981;&#x7684;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<ul>
+<li>get()&#xFF1A;&#x83B7;&#x53D6;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x7684;&#x503C;&#x3002;</li>
+<li>set()&#xFF1A;&#x8BBE;&#x7F6E;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x7684;&#x503C;&#x3002;</li>
+<li>remove()&#xFF1A;&#x79FB;&#x9664;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x7684;&#x503C;&#x3002;</li>
+</ul>
+<h2 id="threadlocal&#x7684;&#x539F;&#x7406;"><a name="threadlocal&#x7684;&#x539F;&#x7406;" class="anchor-navigation-ex-anchor" href="#threadlocal&#x7684;&#x539F;&#x7406;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. ThreadLocal&#x7684;&#x539F;&#x7406;</h2>
+<p>ThreadLocal &#x5185;&#x90E8;&#x6709;&#x4E00;&#x4E2A; static &#x7684;&#x5185;&#x90E8;&#x7C7B; ThreadLocalMap&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">ThreadLocalMap</span> <span class="token punctuation">{</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">}</span>
+</code></pre>
+<p>&#x5728; Thread &#x7C7B;&#x5185;&#x90E8;&#x6709;&#x4E00;&#x4E2A; ThreadLocal.ThreadLocalMap &#x7C7B;&#x578B;&#x7684;&#x6210;&#x5458;&#x53D8;&#x91CF;&#x3002;</p>
+<pre class="language-"><code class="lang-java">ThreadLocal<span class="token punctuation">.</span>ThreadLocalMap threadLocals <span class="token operator">=</span> null<span class="token punctuation">;</span>
+</code></pre>
+<p>&#x8FD9;&#x4E2A; Map &#x7684; Entry &#x662F;&#x8FD9;&#x6837;&#x7684;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token function">Entry</span><span class="token punctuation">(</span>ThreadLocal<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">&gt;</span> k<span class="token punctuation">,</span> Object v<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">super</span><span class="token punctuation">(</span>k<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    value <span class="token operator">=</span> v<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x662F;&#x7528; ThreadLocal &#x5BF9;&#x8C61;&#x4F5C;&#x4E3A; key &#x5B58;&#x5728;&#x6BCF;&#x4E2A;&#x7EBF;&#x7A0B;&#x4E2D;&#x7684;&#xFF0C;&#x5F53;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x5B83;&#x8981;&#x83B7;&#x5F97; threadLocal &#x5BF9;&#x8C61;&#x4E2D;&#x5B58;&#x50A8;&#x7684;&#x503C;&#x65F6;&#xFF0C;&#x5B83;&#x4F1A;&#x8C03;&#x7528;&#x8FD9;&#x4E2A; threadLocal &#x5BF9;&#x8C61;&#x7684; get &#x65B9;&#x6CD5;&#xFF0C;get &#x65B9;&#x6CD5;&#x4F1A;&#x53BB;&#x8FD9;&#x4E2A;&#x7EBF;&#x7A0B;&#x4E2D;&#x53D6;&#x5F97; threadLocals &#x8FD9;&#x4E2A; ThreadLocal.ThreadLocalMap&#xFF0C;&#x7136;&#x540E;&#x6839;&#x636E;&#x8981;&#x83B7;&#x5F97;&#x7684;&#x8FD9;&#x4E2A; threadLocal &#x5BF9;&#x8C61;&#x53BB; map &#x4E2D;&#x5BFB;&#x627E;&#x503C;&#x5E76;&#x8FD4;&#x56DE;&#x3002;</p>
+<h2 id="&#x89E3;&#x51B3;&#x7B2C;&#x4E00;&#x6B21;&#x4F7F;&#x7528;get&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;null&#x95EE;&#x9898;"><a name="&#x89E3;&#x51B3;&#x7B2C;&#x4E00;&#x6B21;&#x4F7F;&#x7528;get&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;null&#x95EE;&#x9898;" class="anchor-navigation-ex-anchor" href="#&#x89E3;&#x51B3;&#x7B2C;&#x4E00;&#x6B21;&#x4F7F;&#x7528;get&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;null&#x95EE;&#x9898;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3. &#x89E3;&#x51B3;&#x7B2C;&#x4E00;&#x6B21;&#x4F7F;&#x7528;get()&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;null&#x95EE;&#x9898;</h2>
+<p>&#x60F3;&#x8981;&#x5B9E;&#x73B0;&#x5E26;&#x521D;&#x59CB;&#x503C;&#x7684; ThreadLocal&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5199;&#x4E00;&#x4E2A; extends ThreadLocal &#x7684;&#x65B0;&#x7C7B;&#xFF0C;&#x901A;&#x8FC7;&#x89C2;&#x5BDF; ThreadLocal &#x4E2D;&#x7684; get() &#x65B9;&#x6CD5;&#x548C; setInitialValue() &#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x53D1;&#x73B0;&#xFF1A;&#x5F53;&#x7B2C;&#x4E00;&#x6B21;&#x4F7F;&#x7528; ThreadLocal &#x7C7B;&#x7684; get() &#x65B9;&#x6CD5;&#x65F6;&#xFF0C;&#x6700;&#x7EC8;&#x5F97;&#x5230;&#x7684;&#x503C;&#x662F; initialValue() &#x7684;&#x8FD4;&#x56DE;&#x503C;&#x3002;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> T <span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Thread t <span class="token operator">=</span> Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ThreadLocalMap map <span class="token operator">=</span> <span class="token function">getMap</span><span class="token punctuation">(</span>t<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &#x7B2C;&#x4E00;&#x6B21;&#x4F7F;&#x7528;&#x65F6;map&#x4E3A;null</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>map <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ThreadLocalMap<span class="token punctuation">.</span>Entry e <span class="token operator">=</span> map<span class="token punctuation">.</span><span class="token function">getEntry</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>e <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token annotation punctuation">@SuppressWarnings</span><span class="token punctuation">(</span><span class="token string">&quot;unchecked&quot;</span><span class="token punctuation">)</span>
+            T result <span class="token operator">=</span> <span class="token punctuation">(</span>T<span class="token punctuation">)</span>e<span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+            <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token function">setInitialValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &#x4F1A;&#x8FD4;&#x56DE;Initial&#x7684;&#x7ED3;&#x679C;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">private</span> T <span class="token function">setInitialValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    T value <span class="token operator">=</span> <span class="token function">initialValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &#x6765;&#x81EA;initialValue()&#x65B9;&#x6CD5;</span>
+    Thread t <span class="token operator">=</span> Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ThreadLocalMap map <span class="token operator">=</span> <span class="token function">getMap</span><span class="token punctuation">(</span>t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>map <span class="token operator">!=</span> null<span class="token punctuation">)</span>
+        map<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">else</span>
+        <span class="token function">createMap</span><span class="token punctuation">(</span>t<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> value<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">protected</span> T <span class="token function">initialValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> null<span class="token punctuation">;</span> <span class="token comment">// &#x8FD4;&#x56DE;&#x4E3A;null&#xFF0C;&#x6240;&#x4EE5;&#x521D;&#x59CB;&#x503C;&#x4E3A;null</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x6240;&#x4EE5;&#x60F3;&#x8981;&#x4E00;&#x4E2A;&#x5E26;&#x521D;&#x59CB;&#x503C;&#x7684; ThreadLocal &#x65B9;&#x6CD5;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5199;&#x4E00;&#x4E2A; ThreadLocal &#x7684;&#x5B50;&#x7C7B;&#xFF0C;&#x7136;&#x540E;&#x8986;&#x76D6;&#x5B83;&#x7684; initialValue() &#x65B9;&#x6CD5;&#xFF0C;&#x4F7F;&#x5176;&#x8FD4;&#x56DE;&#x65B0;&#x7684;&#x521D;&#x59CB;&#x503C;&#x5373;&#x53EF;&#x3002;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ThreadLocalExt</span> <span class="token keyword">extends</span> <span class="token class-name">ThreadLocal</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> T <span class="token function">initialValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">&quot;&#x6211;&#x662F;&#x65B0;&#x7684;&#x9ED8;&#x8BA4;&#x521D;&#x59CB;&#x503C;&#xFF0C;&#x6709;&#x4E86;&#x6211;&#x4EE5;&#x540E;&#xFF0C;&#x7B2C;&#x4E00;&#x6B21;&#x8C03;&#x7528;get()&#x5C31;&#x4E0D;&#x4F1A;&#x8FD4;&#x56DE;null&#x4E86;&quot;</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="inheritablethreadlocal&#x7C7B;"><a name="inheritablethreadlocal&#x7C7B;" class="anchor-navigation-ex-anchor" href="#inheritablethreadlocal&#x7C7B;"><i class="fa fa-link" aria-hidden="true"></i></a>1.4. InheritableThreadLocal&#x7C7B;</h2>
+<p>&#x4F7F;&#x7528; InheritableThreadLocal &#x53EF;&#x4EE5;&#x5728;&#x5B50;&#x7EBF;&#x7A0B;&#x4E2D;&#x53D6;&#x5F97;&#x7236;&#x7EBF;&#x7A0B;&#x5728; ThreadLocal &#x4E2D;&#x5B58;&#x7684;&#x503C;&#xFF0C;&#x4E0D;&#x8FC7;&#x5982;&#x679C;&#x5728;&#x5B50;&#x7EBF;&#x7A0B;&#x53D6;&#x5F97;&#x503C;&#x7684;&#x540C;&#x65F6;&#xFF0C;&#x7236;&#x7EBF;&#x7A0B;&#x4FEE;&#x6539;&#x4E86; InheritableThreadLocal &#x4E2D;&#x7684;&#x503C;&#xFF0C;&#x90A3;&#x4E48;&#x5B50;&#x7EBF;&#x7A0B;&#x53EA;&#x80FD;&#x53D6;&#x5F97;&#x65E7;&#x503C;&#x3002;</p>
+<p>&#x540C;&#x65F6;&#x5B50;&#x7EBF;&#x7A0B;&#x8FD8;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x8986;&#x76D6; InheritableThreadLocal &#x7684; childValue(Object parentValue) &#x65B9;&#x6CD5;&#x5BF9;&#x7236;&#x7EBF;&#x7A0B;&#x8BBE;&#x7F6E;&#x7684;&#x503C;&#x8FDB;&#x884C;&#x4FEE;&#x6539;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">InheritableThreadLocalExt</span> <span class="token keyword">extends</span> <span class="token class-name">InheritableThreadLocal</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> T <span class="token function">initialValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> Object <span class="token function">childValue</span><span class="token punctuation">(</span>Object parentValue<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> parentValue <span class="token operator">+</span> <span class="token string">&quot; &#x6211;&#x662F;&#x5728;&#x5B50;&#x7EBF;&#x7A0B;&#x540E;&#x52A0;&#x7684;&#xFF01;&quot;</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="02-join方法.html" class="navigation navigation-prev " aria-label="Previous page: 3.2. join方法">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../Ch4-Lock的使用/" class="navigation navigation-next " aria-label="Next page: 4. Lock的使用">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"3.3. ThreadLocal类","level":"1.4.3","depth":2,"next":{"title":"4. Lock的使用","level":"1.5","depth":1,"path":"Ch4-Lock的使用/README.md","ref":"Ch4-Lock的使用/README.md","articles":[{"title":"4.1. ReentrantLock类","level":"1.5.1","depth":2,"path":"Ch4-Lock的使用/01-ReentrantLock类.md","ref":"Ch4-Lock的使用/01-ReentrantLock类.md","articles":[]}]},"previous":{"title":"3.2. join方法","level":"1.4.2","depth":2,"path":"Ch3-线程间通信/02-join方法.md","ref":"Ch3-线程间通信/02-join方法.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","anchor-navigation-ex","github","github-buttons","-highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/kuangshp/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"level1Icon":"fa fa-hand-o-right","level2Icon":"fa fa-hand-o-right","level3Icon":"fa fa-hand-o-right","showLevelIcon":true},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showLevel":true},"github-buttons":{"buttons":[{"user":"kuangshp","repo":"mysql","type":"star","size":"small","count":true}]},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":14,"fontFamily":"SimSun","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":30,"left":30,"top":30,"bottom":50}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Java多线程编程核心技术笔记","gitbook":"*"},"file":{"path":"Ch3-线程间通信/03-ThreadLocal类.md","mtime":"2018-08-15T02:53:13.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-20T06:32:20.556Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
